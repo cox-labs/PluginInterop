@@ -5,8 +5,8 @@ scripts from within the Perseus workflow.
 
 The plugin in made to work with other Perseus interop efforts such as:
 
- * [www.github.com/jdrudolph/PerseusR](PerseusR) for interacting with `R`.
- * [www.github.com/jdrudolph/perseuspy](perseuspy) for interacting with `Python`.
+ * [PerseusR](https://www.github.com/jdrudolph/PerseusR) for interacting with `R`.
+ * [perseuspy](https://www.github.com/jdrudolph/perseuspy) for interacting with `Python`.
 
 # Installation
 
@@ -39,7 +39,7 @@ In order to provide paramters to scripts via the `parameters.xml` file one
 has to create a new class deriving from `PluginInterop.MatrixProcessing`
 and overwrite the default `.GetParameters(...)` function. For inspiration
 on how to create the desired parameters see 
-[www.github.com/jurgencox/perseus-plugins](perseus-plugins).
+[perseus-plugins](https://www.github.com/jurgencox/perseus-plugins).
 
 # Contributing
 
