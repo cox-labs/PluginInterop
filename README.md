@@ -37,7 +37,7 @@ and stderr will be reported as error message.
 
 In order to provide paramters to scripts via the `parameters.xml` file one
 has to create a new class deriving from `PluginInterop.MatrixProcessing`
-and overwrite the default `.GetParameters(...)` function. For inspiration
+and overwrite the default `.AddParameters(...)` function. For inspiration
 on how to create the desired parameters see 
 [perseus-plugins](https://www.github.com/jurgencox/perseus-plugins).
 
