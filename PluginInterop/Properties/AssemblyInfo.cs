@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PluginPython")]
+[assembly: AssemblyTitle("PluginInterop")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Max-Plank Institute of Biochemistry")]
-[assembly: AssemblyProduct("PluginPython")]
+[assembly: AssemblyProduct("PluginInterop")]
 [assembly: AssemblyCopyright("Copyright © Max-Plank Institute of Biochemistry 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

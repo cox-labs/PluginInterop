@@ -1,5 +1,7 @@
 # PluginInterop
 
+[![NuGet version](https://badge.fury.io/nu/PluginInterop.svg)](https://www.nuget.org/packages/PluginInterop)
+
 A plugin for Perseus enabling the execution of e.g. `R` and `Python`
 scripts from within the Perseus workflow.
 
@@ -10,8 +12,13 @@ The plugin in made to work with other Perseus interop efforts such as:
 
 # Installation
 
-Clone the repository and build using Visual Studio. Drop the `PluginInterop.dll`
-in the folder with the `Perseus.exe`.
+There are two options. You can download the latest build of the DLL from nuget.org
+(click badge on top). Once downloaded you can unzip the `.nupkg` and find the
+DLL inside.
+
+Alternatively you can clone the repository and build it using Visual Studio.
+
+To use, drop the `PluginInterop.dll` in the `Perseus/bin` folder.
 
 # Usage
 
