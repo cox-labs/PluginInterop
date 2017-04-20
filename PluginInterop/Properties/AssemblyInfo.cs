@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PluginInterop")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A plugin for Perseus enabling the execution of e.g. R and Python scripts from within the Perseus workflow.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Max-Plank Institute of Biochemistry")]
 [assembly: AssemblyProduct("PluginInterop")]

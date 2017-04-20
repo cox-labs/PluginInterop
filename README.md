@@ -40,13 +40,15 @@ and interpretation of the Perseus specific file formats.
 If an external tool crashes (returns exit code 1) anything written to stdout
 and stderr will be reported as error message.
 
-# Providing parameters
+# Extending PluginInterop / Providing parameters
 
 In order to provide paramters to scripts via the `parameters.xml` file one
 has to create a new class deriving from `PluginInterop.MatrixProcessing`
 and overwrite the default `.AddParameters(...)` function. For inspiration
 on how to create the desired parameters see 
 [perseus-plugins](https://www.github.com/jurgencox/perseus-plugins).
+
+You can create a reference to `PluginInterop` via `nuget`.
 
 # Contributing
 

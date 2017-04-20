@@ -11,7 +11,7 @@ using PerseusApi.Utils;
 
 namespace PluginInterop
 {
-    public abstract class MatrixAnalysis : IMatrixAnalysis
+    public abstract class MatrixAnalysis : InteropBase, IMatrixAnalysis
     {
         public abstract string Name { get; }
         public virtual string Description { get; }
@@ -23,103 +23,34 @@ namespace PluginInterop
         public virtual Bitmap2 DisplayImage { get; } 
         public virtual string Heading => "External";
 
-        protected virtual string CodeLabel => "Script file";
-        protected virtual string InterpreterLabel => "Executable";
-        protected virtual string InterpreterFilter => "Interpreter, *.exe|*.exe";
-        protected virtual string CodeFilter => "Script";
 
-        protected virtual string GetCodeFile(Parameters param)
+        /// <summary>
+        /// Create the parameters for the GUI with default of 'Code file' and 'Executable'. Includes buttons
+        /// for preview downloads of 'Data' and 'Parameters' for development purposes.
+        /// Overwrite this function to provide custom parameters.
+        /// </summary>
+        public virtual Parameters GetParameters(IMatrixData mdata, ref string errString)
         {
-            var codeFile = param.GetParam<string>(CodeLabel).Value;
-            return codeFile;
-        }
-
-        protected virtual Parameters AddParameters(IMatrixData mdata, ref string errString)
-        {
-            return new Parameters(new Parameter[] { new FileParam(CodeLabel) { Filter = CodeFilter } }, "specific");
-        }
-
-        public Parameters GetParameters(IMatrixData mdata, ref string errString)
-        {
-            Parameters parameters = AddParameters(mdata, ref errString);
-            var previewButton = new ButtonParamWf("Download data for preview", "save", (o, args) =>
-            {
-                var dialog = new SaveFileDialog
-                {
-                    FileName = $"{mdata.Name}.txt",
-                    Filter = "tab-separated data, *.txt|*.txt"
-                };
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    PerseusUtils.WriteMatrixToFile(mdata, dialog.FileName, false);
-                }
-            });
-            var parametersPreviewButton = new ButtonParamWf("Download parameter for preview", "save", (o, args) =>
-            {
-                var dialog = new SaveFileDialog
-                {
-                    FileName = "parameters.xml",
-                    Filter = "*.xml|*.xml"
-                };
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    using (var f = new StreamWriter(dialog.FileName))
-                    {
-                        parameters.Convert(ParamUtils.ConvertBack);
-                        var serializer = new XmlSerializer(parameters.GetType());
-                        serializer.Serialize(f, parameters);
-                        parameters.Convert(WinFormsParameterFactory.Convert);
-                    }
-                }
-            });
-            parameters.AddParameterGroup(new Parameter[]
-            {
-                new FileParam(InterpreterLabel) {Filter = InterpreterFilter},
-                previewButton, parametersPreviewButton
-            }, "generic", false);
+            Parameters parameters = new Parameters();
+            parameters.AddParameterGroup(new Parameter[] { CodeFileParam() }, "specific", false);
+            var previewButton = Utils.DataPreviewButton(mdata);
+            var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
+            parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "generic", false);
             return parameters;
         }
 
-        public virtual IAnalysisResult AnalyzeData(IMatrixData mdata, Parameters param, ProcessInfo processInfo)
+        public IAnalysisResult AnalyzeData(IMatrixData mdata, Parameters param, ProcessInfo processInfo)
         {
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
             var inFile = Path.GetTempFileName();
-            PerseusUtils.WriteMatrixToFile(mdata, inFile, false);
+            PerseusUtils.WriteMatrixToFile(mdata, inFile);
             var paramFile = Path.GetTempFileName();
-            using (var f = new StreamWriter(paramFile))
-            {
-                param.Convert(ParamUtils.ConvertBack);
-                var serializer = new XmlSerializer(param.GetType());
-                serializer.Serialize(f, param);
-            }
+            param.ToFile(paramFile);
             var outFile = Path.GetTempFileName();
             var codeFile = GetCodeFile(param);
             var args = $"{codeFile} {paramFile} {inFile} {outFile}";
-            Debug.WriteLine($"executing > {remoteExe} {args}");
-            var externalProcessInfo = new ProcessStartInfo
-            {
-                FileName = remoteExe,
-                Arguments = args,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            };
-            using (var process = Process.Start(externalProcessInfo))
-            {
-                var output = process.StandardOutput;
-                string line;
-                while ((line = output.ReadLine()) != null)
-                {
-                    Debug.WriteLine($"remote stdout > {line}");
-                }
-                var error = process.StandardOutput;
-                while ((line = error.ReadLine()) != null)
-                {
-                    Debug.WriteLine($"remote error > {line}");
-                }
-                process.WaitForExit();
-            }
+            var errorString = processInfo.ErrString;
+            if (Utils.RunProcess(remoteExe, args, processInfo.Status, ref errorString) != 0) { return null; }
             return GenerateResult(outFile, mdata, processInfo);
         }
 
