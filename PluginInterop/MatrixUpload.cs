@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BaseLibS.Graph;
 using BaseLibS.Param;
 using PerseusApi.Document;
@@ -39,10 +34,21 @@ namespace PluginInterop
         public virtual Parameters GetParameters(ref string errString)
         {
             Parameters parameters = new Parameters();
-            parameters.AddParameterGroup(new Parameter[] { CodeFileParam() }, "specific", false);
+            parameters.AddParameterGroup(SpecificParameters(ref errString), "specific", false);
             var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
             parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), parametersPreviewButton }, "generic", false);
             return parameters;
+        }
+
+        /// <summary>
+        /// Create specific processing parameters. Defaults to 'Code file'. You can provide custom parameters
+        /// by overriding this function. Called by <see cref="GetParameters"/>.
+        /// </summary>
+        /// <param name="errString"></param>
+        /// <returns></returns>
+        protected virtual Parameter[] SpecificParameters(ref string errString)
+        {
+            return new Parameter[] { CodeFileParam() };
         }
 
         public void LoadData(IMatrixData mdata, Parameters param, ref IMatrixData[] supplTables, ref IDocumentData[] documents,

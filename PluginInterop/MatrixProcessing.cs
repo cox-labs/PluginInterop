@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
-using System.Xml.Serialization;
-using BaseLib.Param;
 using BaseLibS.Graph;
 using BaseLibS.Param;
 using PerseusApi.Document;
@@ -50,9 +45,9 @@ namespace PluginInterop
         }
 
         /// <summary>
-        /// Create the parameters for the GUI with default of 'Code file' and 'Executable'. Includes buttons
-        /// for preview downloads of 'Data' and 'Parameters' for development purposes.
-        /// Overwrite this function to provide custom parameters.
+        /// Create the parameters for the GUI with default of specific 'Code file' parameter and generic 'Executable'.
+        /// Includes buttons /// for preview downloads of 'Data' and 'Parameters' for development purposes.
+        /// Overwrite <see cref="SpecificParameters"/> to add specific parameter. Overwrite this function for full control.
         /// </summary>
         /// <param name="mdata"></param>
         /// <param name="errString"></param>
@@ -60,11 +55,23 @@ namespace PluginInterop
         public virtual Parameters GetParameters(IMatrixData mdata, ref string errString)
         {
             Parameters parameters = new Parameters();
-            parameters.AddParameterGroup(new Parameter[] { CodeFileParam() }, "specific", false);
+            parameters.AddParameterGroup(SpecificParameters(mdata, ref errString), "specific", false);
             var previewButton = Utils.DataPreviewButton(mdata);
             var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
             parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "generic", false);
             return parameters;
+        }
+
+        /// <summary>
+        /// Create specific processing parameters. Defaults to 'Code file'. You can provide custom parameters
+        /// by overriding this function. Called by <see cref="GetParameters"/>.
+        /// </summary>
+        /// <param name="mdata"></param>
+        /// <param name="errString"></param>
+        /// <returns></returns>
+        protected virtual Parameter[] SpecificParameters(IMatrixData mdata, ref string errString)
+        {
+            return new Parameter[] {CodeFileParam()};
         }
     }
 }
