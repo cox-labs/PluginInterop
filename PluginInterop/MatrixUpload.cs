@@ -16,8 +16,8 @@ namespace PluginInterop
         public float DisplayRank => 1;
         public bool IsActive => true;
         public int GetMaxThreads(Parameters parameters) => 1;
-        public virtual bool HasButton => false;
-        public virtual Bitmap2 DisplayImage => null;
+        public bool HasButton => true;
+        public abstract Bitmap2 DisplayImage { get; }
         public string Url { get; }
         public string[] HelpSupplTables { get; }
         public int NumSupplTables { get; }
