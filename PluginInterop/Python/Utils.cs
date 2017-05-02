@@ -56,6 +56,7 @@ namespace PluginInterop.Python
                     StartInfo =
                     {
                         UseShellExecute = false,
+                        CreateNoWindow = true,
                         FileName = exeName,
                         Arguments = "-c \"import perseuspy\"",
                     }
