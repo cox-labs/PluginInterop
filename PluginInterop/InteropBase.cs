@@ -10,6 +10,8 @@ namespace PluginInterop
         protected virtual string CodeFilter => "Script";
         protected virtual string CodeLabel => "Script file";
 
+
+
         /// <summary>
         /// Extract the code file as a string. See <see cref="CodeFileParam"/>.
         /// </summary>
@@ -37,7 +39,13 @@ namespace PluginInterop
         /// <returns></returns>
         protected virtual FileParam ExecutableParam()
         {
-            return new FileParam(InterpreterLabel) {Filter = InterpreterFilter};
+            var executableParam = new FileParam(InterpreterLabel) {Filter = InterpreterFilter};
+            string executable;
+            if (TryFindExecutable(out executable))
+            {
+                executableParam.Value = executable;
+            }
+            return executableParam;
         }
 
         /// <summary>
@@ -47,6 +55,12 @@ namespace PluginInterop
         protected virtual FileParam CodeFileParam()
         {
             return new FileParam(CodeLabel) {Filter = CodeFilter};
+        }
+
+        protected virtual bool TryFindExecutable(out string path)
+        {
+            path = null;
+            return false;
         }
     }
 }

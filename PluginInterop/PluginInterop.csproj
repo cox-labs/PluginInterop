@@ -68,6 +68,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Python\MatrixProcessing.cs" />
+    <Compile Include="Python\Utils.cs" />
     <Compile Include="R\MatrixProcessing.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
