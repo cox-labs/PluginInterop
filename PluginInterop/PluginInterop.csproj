@@ -56,6 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonParamWf.cs" />
+    <Compile Include="CheckedFileParam.cs" />
+    <Compile Include="CheckedFileParamControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CheckedFileParamControl.Designer.cs">
+      <DependentUpon>CheckedFileParamControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="InteropBase.cs" />
     <Compile Include="MatrixAnalysis.cs" />
     <Compile Include="MatrixProcessing.cs" />
@@ -73,6 +80,9 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CheckedFileParamControl.resx">
+      <DependentUpon>CheckedFileParamControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

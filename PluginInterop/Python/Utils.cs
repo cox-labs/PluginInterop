@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace PluginInterop.Python
 {
@@ -58,13 +59,19 @@ namespace PluginInterop.Python
                         UseShellExecute = false,
                         CreateNoWindow = true,
                         FileName = exeName,
-                        Arguments = "-c \"import perseuspy\"",
+                        Arguments = "-c \"import perseuspy; print('hello')\"",
+                        RedirectStandardOutput = true,
                     }
                 };
+                var output = new StringBuilder();
+                p.OutputDataReceived += (sender, args) =>
+                {
+                    output.Append(args.Data);
+                };
                 p.Start();
+                p.BeginOutputReadLine();
                 p.WaitForExit();
-
-                return p.ExitCode == 0;
+                return p.ExitCode == 0 && output.ToString().StartsWith("hello");
             }
             catch (Exception e)
             {
