@@ -14,10 +14,10 @@ namespace PluginInterop.R
         /// <returns></returns>
         public static bool TryFindRExecutable(out string path)
         {
-            if (CheckRInstallation("R"))
+            if (CheckRInstallation("Rscript"))
             {
-                Debug.WriteLine("Found 'R' in PATH");
-                path = "R";
+                Debug.WriteLine("Found 'Rscript' in PATH");
+                path = "Rscript";
                 return true;
             }
             var folders = new[]
@@ -70,7 +70,7 @@ namespace PluginInterop.R
                 p.Start();
                 p.BeginOutputReadLine();
                 p.WaitForExit();
-                return p.ExitCode == 0;
+                return p.ExitCode == 0 ;
             }
             catch (Exception e)
             {
