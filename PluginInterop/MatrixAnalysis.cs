@@ -48,8 +48,11 @@ namespace PluginInterop
             var outFile = Path.GetTempFileName();
             var codeFile = GetCodeFile(param);
             var args = $"{codeFile} {paramFile} {inFile} {outFile}";
-            var errorString = processInfo.ErrString;
-            if (Utils.RunProcess(remoteExe, args, processInfo.Status, ref errorString) != 0) { return null; }
+            if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string errorString) != 0)
+            {
+                processInfo.ErrString = errorString;
+                return null;
+            }
             return GenerateResult(outFile, mdata, processInfo);
         }
 

@@ -61,8 +61,9 @@ namespace PluginInterop
         /// <param name="status"></param>
         /// <param name="errorString"></param>
         /// <returns></returns>
-        public static int RunProcess(string remoteExe, string args, Action<string> status, ref string errorString)
+        public static int RunProcess(string remoteExe, string args, Action<string> status, out string errorString)
         {
+            errorString = null; // no error
             var externalProcessInfo = new ProcessStartInfo
             {
                 FileName = remoteExe,

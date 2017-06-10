@@ -61,8 +61,11 @@ namespace PluginInterop
             var codeFile = GetCodeFile(param);
             var args = $"{codeFile} {paramFile} {outFile}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
-            var processInfoErrString = processInfo.ErrString;
-            if (Utils.RunProcess(remoteExe, args, processInfo.Status, ref processInfoErrString) != 0) return;
+            if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
+            {
+                processInfo.ErrString = processInfoErrString;
+                return;
+            };
             PerseusUtils.ReadMatrixFromFile(mdata, processInfo, outFile, '\t');
         }
     }
