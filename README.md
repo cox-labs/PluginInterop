@@ -12,9 +12,9 @@ The plugin in made to work with other Perseus interop efforts such as:
 
 # Installation
 
-There are two options. You can download the latest build of the DLL from nuget.org
-(click badge on top). Once downloaded you can unzip the `.nupkg` and find the
-DLL inside.
+There are two options. You can download the latest build of the DLL from
+[nuget.org](https://www.nuget.org/packages/PluginInterop). Once downloaded you
+can unzip the `.nupkg` and find the DLL inside.
 
 Alternatively you can clone the repository and build it using Visual Studio.
 
@@ -24,7 +24,10 @@ To use, drop the `PluginInterop.dll` in the `Perseus/bin` folder.
 
 New matrix processing activities `R => matrix` and `Python => matrix` should be
 available from Perseus. You can choose a custom interpreter and script file
-which should be run on the selected matrix.
+which should be run on the selected matrix. Perseus will try to automatically detect
+your `R` or `Python` installation, by looking at the default installation
+directories and the `%PATH%` variable. Therefore, installations at non-standard locations
+can be detected, if added to the `%PATH%` ([lmgtfy](http://lmgtfy.com/?q=windows+add+program+to+path)).
 
 The selected script will receive 3 commandline arguments:
 ```
