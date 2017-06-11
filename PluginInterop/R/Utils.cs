@@ -26,7 +26,7 @@ namespace PluginInterop.R
                 Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
                 Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)
             }.Where(f => !string.IsNullOrEmpty(f));
-            foreach (var folder in folders.Select(f => Path.Combine(f, "R")))
+            foreach (var folder in folders.Select(f => Path.Combine(f, "R")).Where(Directory.Exists))
             {
                 foreach (var subFolder in Directory.EnumerateDirectories(folder, "R*"))
                 {

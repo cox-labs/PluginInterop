@@ -31,7 +31,7 @@ namespace PluginInterop.Python
             {
                 folders.Add(Path.Combine(appData, "Programs"));
             }
-            foreach (var folder in folders.Select(f => Path.Combine(f, "Python")))
+            foreach (var folder in folders.Select(f => Path.Combine(f, "Python")).Where(Directory.Exists))
             {
                 foreach (var pyFolder in Directory.EnumerateDirectories(folder, "Python*"))
                 {
