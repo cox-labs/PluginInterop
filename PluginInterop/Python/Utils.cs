@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace PluginInterop.Python
@@ -22,11 +23,15 @@ namespace PluginInterop.Python
             }
             var folders = new[]
             {
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "Python"),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Python"),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "Python"),
-            };
-            foreach (var folder in folders)
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)
+            }.Where(f => !string.IsNullOrEmpty(f)).ToList();
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            if (!string.IsNullOrEmpty(appData))
+            {
+                folders.Add(Path.Combine(appData, "Programs"));
+            }
+            foreach (var folder in folders.Select(f => Path.Combine(f, "Python")))
             {
                 foreach (var pyFolder in Directory.EnumerateDirectories(folder, "Python*"))
                 {

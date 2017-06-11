@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace PluginInterop.R
@@ -22,10 +23,10 @@ namespace PluginInterop.R
             }
             var folders = new[]
             {
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "R"),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "R"),
-            };
-            foreach (var folder in folders)
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)
+            }.Where(f => !string.IsNullOrEmpty(f));
+            foreach (var folder in folders.Select(f => Path.Combine(f, "R")))
             {
                 foreach (var subFolder in Directory.EnumerateDirectories(folder, "R*"))
                 {
