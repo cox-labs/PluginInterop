@@ -12,13 +12,17 @@ The plugin in made to work with other Perseus interop efforts such as:
 
 # Installation
 
-There are two options. You can download the latest build of the DLL from
-[nuget.org](https://www.nuget.org/packages/PluginInterop). Once downloaded you
-can unzip the `.nupkg` and find the DLL inside.
-
-Alternatively you can clone the repository and build it using Visual Studio.
+Download the latest build of the DLL from
+[nuget.org](https://www.nuget.org/packages/PluginInterop). Once downloaded
+(left side of screen) you can unzip the `.nupkg` file.
+You might have to rename it to `.zip`. You will find the `PluginInterop.dll`
+under `lib\net45\PluginInterop.dll`.
 
 To use, drop the `PluginInterop.dll` in the `Perseus/bin` folder.
+
+# Build from source
+
+Clone the repository and build it using Visual Studio.
 
 # Usage
 
