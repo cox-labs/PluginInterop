@@ -26,7 +26,7 @@ Clone the repository and build it using Visual Studio.
 
 # Usage
 
-New matrix processing activities `R => matrix` and `Python => matrix` should be
+New matrix processing activities `External -> R => matrix` and `External -> Python => matrix` should be
 available from Perseus. You can choose a custom interpreter and script file
 which should be run on the selected matrix. Perseus will try to automatically detect
 your `R` or `Python` installation, by looking at the default installation
