@@ -11,7 +11,11 @@ The plugin in made to work with other Perseus interop efforts such as:
  * [perseuspy](https://www.github.com/jdrudolph/perseuspy) for interacting with `Python`.
 
 # Installation
+## Stable version
+Stable versions of `PluginInterop.dll` are available in the Perseus
+[plugin store](http://www.coxdocs.org/doku.php?id=perseus:user:plugins:store#available_plugins).
 
+## Latest version
 Download the latest build of the DLL from
 [nuget.org](https://www.nuget.org/packages/PluginInterop). Once downloaded
 (left side of screen) you can unzip the `.nupkg` file.
