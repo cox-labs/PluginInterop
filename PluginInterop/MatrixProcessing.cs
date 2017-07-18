@@ -13,18 +13,18 @@ namespace PluginInterop
     {
         public abstract string Name { get; }
         public abstract string Description { get; }
-        public float DisplayRank => 1;
-        public bool IsActive => true;
-        public int GetMaxThreads(Parameters parameters) => 1;
+        public virtual float DisplayRank => 1;
+        public virtual bool IsActive => true;
+        public virtual int GetMaxThreads(Parameters parameters) => 1;
         public virtual bool HasButton => false;
-        public virtual Bitmap2 DisplayImage => null; 
-        public string Url { get; }
+        public virtual Bitmap2 DisplayImage => null;
+        public virtual string Url => "www.github.com/jdrudolph/plugininterop";
         public virtual string Heading => "External";
-        public string HelpOutput { get; }
-        public string[] HelpSupplTables { get; }
-        public int NumSupplTables { get; }
-        public string[] HelpDocuments { get; }
-        public int NumDocuments { get; }
+        public virtual string HelpOutput { get; }
+        public virtual string[] HelpSupplTables { get; }
+        public virtual int NumSupplTables { get; }
+        public virtual string[] HelpDocuments { get; }
+        public virtual int NumDocuments { get; }
 
         public void ProcessData(IMatrixData mdata, Parameters param, ref IMatrixData[] supplTables, ref IDocumentData[] documents,
             ProcessInfo processInfo)
