@@ -1,8 +1,10 @@
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using BaseLibS.Param;
 
 namespace PluginInterop.Python
 {
@@ -55,8 +57,19 @@ namespace PluginInterop.Python
         /// <returns></returns>
         public static bool CheckPythonInstallation(string exeName)
         {
+            return CheckPythonInstallation(exeName, new[] {"perseuspy"});
+        }
+        /// <summary>
+        /// Returns true if executable path points to python and can import the specified packages.
+        /// </summary>
+        /// <param name="exeName"></param>
+        /// <param name="packages"></param>
+        /// <returns></returns>
+        public static bool CheckPythonInstallation(string exeName, string[] packages)
+        {
             try
             {
+                var imports = string.Join("; ", packages.Select(package => $"import {package}"));
                 Process p = new Process
                 {
                     StartInfo =
@@ -64,7 +77,7 @@ namespace PluginInterop.Python
                         UseShellExecute = false,
                         CreateNoWindow = true,
                         FileName = exeName,
-                        Arguments = "-c \"import perseuspy; print('hello')\"",
+                        Arguments = $"-c {imports}; print('hello')",
                         RedirectStandardOutput = true,
                     }
                 };
@@ -82,6 +95,54 @@ namespace PluginInterop.Python
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Type definition for the <see cref="TryFindExecutableDelegate"/> used in <see cref="Utils.CreateCheckedFileParam"/>.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public delegate bool TryFindExecutableDelegate(out string path);
+
+        /// <summary>
+        /// Create a checked file param which changes color if the python installation passes <see cref="CheckPythonInstallation"/>.
+        /// </summary>
+        /// <param name="interpreterLabel"></param>
+        /// <param name="interpreterFilter"></param>
+        /// <param name="tryFindExecutable"></param>
+        /// <param name="packages">Passed directly to python.exe -e</param>
+        /// <returns></returns>
+        public static  FileParam CreateCheckedFileParam(string interpreterLabel, string interpreterFilter, TryFindExecutableDelegate tryFindExecutable,
+            string[] packages)
+        {
+            Action<string, CheckedFileParamControl> checkFileName = (s, control) =>
+            {
+                if (string.IsNullOrWhiteSpace(s))
+                {
+                    return;
+                }
+                if (CheckPythonInstallation(s, packages))
+                {
+                    control.selectButton.BackColor = Color.LimeGreen;
+                    control.ToolTip.SetToolTip(control.selectButton, "Python installation was found");
+                }
+                else
+                {
+                    control.selectButton.BackColor = Color.Red;
+                    control.ToolTip.SetToolTip(control.selectButton,
+                        "A valid Python installation was not found.\n" +
+                        "Could not import one or more packages:\n" +
+                        string.Join(", ", packages));
+                }
+                ;
+            };
+            var fileParam = new CheckedFileParamWf(interpreterLabel, checkFileName) {Filter = interpreterFilter};
+            string path;
+            if (tryFindExecutable(out path))
+            {
+                fileParam.Value = path;
+            }
+            return fileParam;
         }
     }
 }

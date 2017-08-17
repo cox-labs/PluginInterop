@@ -1,16 +1,13 @@
-using BaseLib.Graphic;
+﻿using BaseLib.Graphic;
 using BaseLibS.Graph;
 using BaseLibS.Param;
 
 namespace PluginInterop.Python
 {
-    public class MatrixProcessing : PluginInterop.MatrixProcessing
+    public class Upload : MatrixUpload
     {
-        public override string Name => "Matrix => Python";
-        public override string Description => "Run Python script";
-
-        protected override string CodeFilter => "Python script, *.py | *.py";
-
+        public override string Name => "Python upload";
+        public override string Description => "Upload a matrix using Python";
         public override Bitmap2 DisplayImage => GraphUtils.ToBitmap2(Properties.Resources.python_logo_master_v3_TM_flattened);
 
         protected override FileParam ExecutableParam()
@@ -24,4 +21,3 @@ namespace PluginInterop.Python
         }
     }
 }
- 
