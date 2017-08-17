@@ -38,7 +38,9 @@
     <Reference Include="BaseLibS, Version=1.6.0.282, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BaseLibS.1.6.0.282\lib\net45\BaseLibS.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusApi, Version=1.6.0.58, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="PerseusApi, Version=1.6.0.190, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusApi.1.6.0.190\lib\net45\PerseusApi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
