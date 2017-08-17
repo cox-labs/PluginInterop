@@ -10,9 +10,9 @@
     <description>$description$</description>
     <copyright>Copyright 2016</copyright>
     <dependencies>
-      <dependency id="BaseLib" version="$baseversion$" />
-      <dependency id="BaseLibS" version="$baseversion$" />
-      <dependency id="PerseusApi" version="$baseversion$" />
+      <dependency id="BaseLib" version="1.6.0.282" />
+      <dependency id="BaseLibS" version="1.6.0.282" />
+      <dependency id="PerseusApi" version="1.6.0.120" />
     </dependencies> 
   </metadata>
 </package>
