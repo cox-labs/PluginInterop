@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterop", "PluginInterop\PluginInterop.csproj", "{F670FF3D-405F-4E90-81F7-07E321EBD281}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuiTestProject", "GuiTestProject\GuiTestProject.csproj", "{CF986221-BCA6-4B65-BC70-82556FC96DE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterop.Test", "PluginInterop\PluginInterop.Test\PluginInterop.Test.csproj", "{81651D85-7146-4C65-B938-DE01E30D07F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{CF986221-BCA6-4B65-BC70-82556FC96DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF986221-BCA6-4B65-BC70-82556FC96DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF986221-BCA6-4B65-BC70-82556FC96DE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81651D85-7146-4C65-B938-DE01E30D07F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81651D85-7146-4C65-B938-DE01E30D07F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81651D85-7146-4C65-B938-DE01E30D07F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81651D85-7146-4C65-B938-DE01E30D07F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F036EF5-5932-4265-9393-6CCEC7E9D1D8}
 	EndGlobalSection
 EndGlobal

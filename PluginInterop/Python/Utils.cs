@@ -8,7 +8,7 @@ using BaseLibS.Param;
 
 namespace PluginInterop.Python
 {
-    public class Utils
+    public static class Utils
     {
         /// <summary>
         /// Searches for python executable with perseuspy installed in PATH and installation folders.
@@ -77,7 +77,7 @@ namespace PluginInterop.Python
                         UseShellExecute = false,
                         CreateNoWindow = true,
                         FileName = exeName,
-                        Arguments = $"-c {imports}; print('hello')",
+                        Arguments = $"-c \"{imports}; print('hello')\"",
                         RedirectStandardOutput = true,
                     }
                 };
