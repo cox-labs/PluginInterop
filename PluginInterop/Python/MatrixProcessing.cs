@@ -17,7 +17,7 @@ namespace PluginInterop.Python
         /// List of all required python packages.
         /// These packages will be checked by <see cref="ExecutableParam"/>.
         /// </summary>
-        protected static string[] ReqiredPythonPackages = {"perseuspy"};
+        protected string[] ReqiredPythonPackages => new [] {"perseuspy"};
 
         protected override FileParam ExecutableParam()
         {
