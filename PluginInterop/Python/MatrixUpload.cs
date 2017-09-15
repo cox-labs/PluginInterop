@@ -4,7 +4,7 @@ using BaseLibS.Param;
 
 namespace PluginInterop.Python
 {
-    public class Upload : MatrixUpload
+    public class MatrixUpload : PluginInterop.MatrixUpload
     {
         public override string Name => "Python upload";
         public override string Description => "Upload a matrix using Python";
