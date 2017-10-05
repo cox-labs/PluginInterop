@@ -46,3 +46,6 @@ _ReSharper*
 .DS_Store
 *.ide
 *.ide-journal
+/PluginInterop/conf/perseus/headingOrderMatrixAnalysis.txt
+/PluginInterop/conf/perseus/headingOrderMatrixProcessing.txt
+/PluginInterop/conf/spSpecies.txt

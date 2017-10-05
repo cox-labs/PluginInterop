@@ -35,7 +35,11 @@ namespace PluginInterop
             var paramFile = Path.GetTempFileName();
             param.ToFile(paramFile);
             var outFile = Path.GetTempFileName();
-            var codeFile = GetCodeFile(param);
+            if (!TryGetCodeFile(param, out string codeFile))
+            {
+                processInfo.ErrString = $"Code file '{codeFile}' was not found";
+                return;
+            };
             var args = $"{codeFile} {paramFile} {inFile} {outFile}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)

@@ -33,14 +33,20 @@
     <DocumentationFile>bin\Release\PluginInterop.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BaseLib, Version=1.6.0.282, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLib.1.6.0.282\lib\net45\BaseLib.dll</HintPath>
+    <Reference Include="BaseLib, Version=1.6.0.310, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaseLib.1.6.0.310\lib\net45\BaseLib.dll</HintPath>
     </Reference>
-    <Reference Include="BaseLibS, Version=1.6.0.282, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLibS.1.6.0.282\lib\net45\BaseLibS.dll</HintPath>
+    <Reference Include="BaseLibS, Version=1.6.0.310, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaseLibS.1.6.0.310\lib\net45\BaseLibS.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusApi, Version=1.6.0.190, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusApi.1.6.0.190\lib\net45\PerseusApi.dll</HintPath>
+    <Reference Include="Calc">
+      <HintPath>..\..\photon\PluginPHOTON\PluginPHOTON\Calc.dll</HintPath>
+    </Reference>
+    <Reference Include="PerseusApi, Version=1.6.0.225, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusApi.1.6.0.225\lib\net45\PerseusApi.dll</HintPath>
+    </Reference>
+    <Reference Include="PerseusLibS, Version=1.6.0.1301, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusLibS.1.6.0.1301\lib\net45\PerseusLibS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,6 +71,8 @@
     </Compile>
     <Compile Include="InteropBase.cs" />
     <Compile Include="MatrixAnalysis.cs" />
+    <Compile Include="Python\NetworkFromMatrix.cs" />
+    <Compile Include="NetworkFromMatrix.cs" />
     <Compile Include="MatrixProcessing.cs" />
     <Compile Include="MatrixUpload.cs" />
     <Compile Include="ParametersExtensions.cs" />
@@ -91,15 +99,21 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
     <None Include="Resources\python-logo-master-v3-TM-flattened.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Rlogo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="conf\perseus\headingOrderMatrixAnalysis.txt" />
+    <Content Include="conf\perseus\headingOrderMatrixProcessing.txt" />
+    <Content Include="conf\spSpecies.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetDir)$(TargetFileName) C:\Users\rudolph\Desktop\Perseus\bin\$(TargetFileName)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

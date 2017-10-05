@@ -1,3 +1,4 @@
+using System.IO;
 using BaseLibS.Param;
 
 namespace PluginInterop
@@ -17,10 +18,14 @@ namespace PluginInterop
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        protected virtual string GetCodeFile(Parameters param)
+        protected virtual bool TryGetCodeFile(Parameters param, out string codeFile)
         {
-            var codeFile = param.GetParam<string>(CodeLabel).Value;
-            return codeFile;
+            codeFile = param.GetParam<string>(CodeLabel).Value;
+            if (string.IsNullOrEmpty(codeFile) || !File.Exists(codeFile))
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -49,7 +54,7 @@ namespace PluginInterop
         }
 
         /// <summary>
-        /// FileParam for specifying the code file. See <see cref="GetCodeFile"/>.
+        /// FileParam for specifying the code file. See <see cref="TryGetCodeFile"/>.
         /// </summary>
         /// <returns></returns>
         protected virtual FileParam CodeFileParam()
