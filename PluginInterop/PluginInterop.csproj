@@ -112,7 +112,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)$(TargetFileName) C:\Users\rudolph\Desktop\Perseus\bin\$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>IF EXIST C:\Users\rudolph\Desktop\Perseus\bin\NUL (
+copy $(TargetDir)$(TargetFileName) C:\Users\rudolph\Desktop\Perseus\bin\$(TargetFileName)
+) ELSE (
+echo "DLL not copied"
+)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
