@@ -59,8 +59,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PythonTest.cs" />
-    <Compile Include="PythonUtilsTest.cs" />
+    <Compile Include="Python\MatrixProcessingTest.cs" />
+    <Compile Include="Python\NetworkFromMatrixTest.cs" />
+    <Compile Include="Python\UtilsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\matrix_with_supp_tables.py" />
     <None Include="Resources\matrix_to_network.py" />
   </ItemGroup>
   <ItemGroup>

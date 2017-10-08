@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using BaseLibS.Graph;
 using BaseLibS.Param;
 using PerseusApi.Document;
@@ -42,7 +43,12 @@ namespace PluginInterop
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return;
             };
-            var args = $"{codeFile} {paramFile} {inFile} {outFolder}";
+            if (supplTables == null)
+            {
+                supplTables = Enumerable.Range(0, NumSupplTables).Select(i => PerseusFactory.CreateMatrixData()) .ToArray();
+            }
+            var suppFiles = supplTables.Select(i => Path.GetTempFileName()).ToArray();
+            var args = $"{codeFile} {paramFile} {inFile} {outFolder} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {
@@ -50,6 +56,10 @@ namespace PluginInterop
                 return;
             };
             FolderFormat.Read(outData, outFolder, processInfo);
+            for (int i = 0; i < NumSupplTables; i++)
+            {
+                PerseusUtils.ReadMatrixFromFile(supplTables[i], processInfo, suppFiles[i], '\t');
+            }
         }
 
         /// <summary>

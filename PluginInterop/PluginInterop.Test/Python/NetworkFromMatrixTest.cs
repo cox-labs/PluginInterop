@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using NUnit.Framework;
@@ -8,22 +7,22 @@ using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Utils;
 
-namespace PluginInterop.Test
+namespace PluginInterop.Test.Python
 {
     [TestFixture]
-    public class PythonTest
+    public class NetworkFromMatrixTest
     {
         [Test]
         public void TestNetworkFromMatrix()
         {
-            if (!Python.Utils.TryFindPythonExecutable(out string _))
+            if (!PluginInterop.Python.Utils.TryFindPythonExecutable(out string _))
             {
                 Assert.Inconclusive("Python not installed");
             }
             var codeString = Properties.Resources.matrix_to_network;
             var codeFile = Path.GetTempFileName();
             File.WriteAllText(codeFile, Encoding.UTF8.GetString(codeString));
-            var processing = new Python.NetworkFromMatrix();
+            var processing = new PluginInterop.Python.NetworkFromMatrix();
             var mdata = PerseusFactory.CreateMatrixData(new [,] {{0.0, 1.0}}, new List<string> {"col 1", "col 2"});
             var errString = string.Empty;
             var parameters = processing.GetParameters(mdata, ref errString);

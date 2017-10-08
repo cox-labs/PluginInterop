@@ -69,5 +69,15 @@ namespace PluginInterop.Test.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] matrix_with_supp_tables {
+            get {
+                object obj = ResourceManager.GetObject("matrix_with_supp_tables", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
