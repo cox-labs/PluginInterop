@@ -7,7 +7,9 @@ using System.Xml.Serialization;
 using BaseLib.Param;
 using BaseLibS.Param;
 using PerseusApi.Matrix;
+using PerseusApi.Network;
 using PerseusApi.Utils;
+using PerseusLibS.Data.Network;
 
 namespace PluginInterop
 {
@@ -26,6 +28,21 @@ namespace PluginInterop
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     PerseusUtils.WriteMatrixToFile(mdata, dialog.FileName, false);
+                }
+            });
+        }
+
+        public static ButtonParamWf DataPreviewButton(INetworkData ndata)
+        {
+            return new ButtonParamWf("Download data for preview", "save", (o, args) =>
+            {
+                var dialog = new FolderBrowserDialog
+                {
+                    ShowNewFolderButton = true
+                };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    FolderFormat.Write(ndata, dialog.SelectedPath);
                 }
             });
         }

@@ -71,6 +71,8 @@
     </Compile>
     <Compile Include="InteropBase.cs" />
     <Compile Include="MatrixAnalysis.cs" />
+    <Compile Include="NetworkProcessing.cs" />
+    <Compile Include="Python\NetworkProcessing.cs" />
     <Compile Include="Python\NetworkFromMatrix.cs" />
     <Compile Include="NetworkFromMatrix.cs" />
     <Compile Include="MatrixProcessing.cs" />
