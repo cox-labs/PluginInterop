@@ -42,11 +42,11 @@
     <Reference Include="Calc">
       <HintPath>..\..\photon\PluginPHOTON\PluginPHOTON\Calc.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusApi, Version=1.6.0.229, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusApi.1.6.0.229\lib\net45\PerseusApi.dll</HintPath>
+    <Reference Include="PerseusApi, Version=1.6.0.230, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusApi.1.6.0.230\lib\net45\PerseusApi.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusLibS, Version=1.6.0.1306, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusLibS.1.6.0.1306\lib\net45\PerseusLibS.dll</HintPath>
+    <Reference Include="PerseusLibS, Version=1.6.0.1313, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusLibS.1.6.0.1313\lib\net45\PerseusLibS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
