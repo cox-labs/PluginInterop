@@ -33,20 +33,20 @@
     <DocumentationFile>bin\Release\PluginInterop.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BaseLib, Version=1.6.0.313, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLib.1.6.0.313\lib\net45\BaseLib.dll</HintPath>
+    <Reference Include="BaseLib, Version=1.6.0.314, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaseLib.1.6.0.314\lib\net45\BaseLib.dll</HintPath>
     </Reference>
-    <Reference Include="BaseLibS, Version=1.6.0.313, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLibS.1.6.0.313\lib\net45\BaseLibS.dll</HintPath>
+    <Reference Include="BaseLibS, Version=1.6.0.314, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaseLibS.1.6.0.314\lib\net45\BaseLibS.dll</HintPath>
     </Reference>
     <Reference Include="Calc">
       <HintPath>..\..\photon\PluginPHOTON\PluginPHOTON\Calc.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusApi, Version=1.6.0.230, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusApi.1.6.0.230\lib\net45\PerseusApi.dll</HintPath>
+    <Reference Include="PerseusApi, Version=1.6.0.232, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusApi.1.6.0.232\lib\net45\PerseusApi.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusLibS, Version=1.6.0.1313, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusLibS.1.6.0.1313\lib\net45\PerseusLibS.dll</HintPath>
+    <Reference Include="PerseusLibS, Version=1.6.0.1318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusLibS.1.6.0.1318\lib\net45\PerseusLibS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
