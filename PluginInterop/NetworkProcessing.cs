@@ -29,7 +29,7 @@ namespace PluginInterop
         public virtual int NumSupplTables { get; }
         public virtual string[] HelpDocuments { get; }
         public virtual int NumDocuments { get; }
-
+        public virtual DataType[] SupplDataTypes => Enumerable.Repeat(DataType.Matrix, NumSupplTables).ToArray();
 
         /// <summary>
         /// Create specific processing parameters. Defaults to 'Code file'. You can provide custom parameters
@@ -56,8 +56,7 @@ namespace PluginInterop
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return;
             };
-            var supplTables = Enumerable.Range(0, NumSupplTables).Select(i => PerseusFactory.CreateMatrixData()) .ToArray();
-            var suppFiles = supplTables.Select(i => Path.GetTempFileName()).ToArray();
+            var suppFiles = SupplDataTypes.Select(Utils.CreateTemporaryPath).ToArray();
             var args = $"{codeFile} {paramFile} {inFolder} {outFolder} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
@@ -67,11 +66,7 @@ namespace PluginInterop
             };
             ndata.Clear();
             FolderFormat.Read(ndata, outFolder, processInfo);
-            for (int i = 0; i < NumSupplTables; i++)
-            {
-                PerseusUtils.ReadMatrixFromFile(supplTables[i], processInfo, suppFiles[i], '\t');
-            }
-            supplData = supplTables;
+            supplData = Utils.ReadSupplementaryData(suppFiles, SupplDataTypes, processInfo);
         }
 
         /// <summary>

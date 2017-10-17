@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using BaseLib.Param;
 using BaseLibS.Param;
+using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Network;
 using PerseusApi.Utils;
@@ -118,6 +119,58 @@ namespace PluginInterop
             }
             process.Dispose();
             return exitCode;
+        }
+
+        /// <summary>
+        /// Read supplementary files according to file paths and data types.
+        /// </summary>
+        /// <param name="suppFiles"></param>
+        /// <param name="supplDataTypes"></param>
+        /// <param name="processInfo"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static IData[] ReadSupplementaryData(string[] suppFiles, DataType[] supplDataTypes, ProcessInfo processInfo)
+        {
+            var numSupplTables = suppFiles.Length;
+            IData[] supplData = new IData[numSupplTables];
+            for (int i = 0; i < numSupplTables; i++)
+            {
+                switch (supplDataTypes[i])
+                {
+                    case DataType.Matrix:
+                        var mdata = PerseusFactory.CreateMatrixData();
+                        PerseusUtils.ReadMatrixFromFile(mdata, processInfo, suppFiles[i], '\t');
+                        supplData[i] = mdata;
+                        break;
+                    case DataType.Network:
+                        var ndata = PerseusFactory.CreateNetworkData();
+                        FolderFormat.Read(ndata, suppFiles[i], processInfo);
+                        supplData[i] = ndata;
+                        break;
+                    default:
+                        throw new NotImplementedException($"Data type {supplDataTypes[i]} not supported!");
+                }
+            }
+            return supplData;
+        }
+
+        /// <summary>
+        /// Create a temporary path for a specific data type.
+        /// </summary>
+        /// <param name="dataType"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static string CreateTemporaryPath(DataType dataType)
+        {
+            switch (dataType)
+            {
+                case DataType.Matrix:
+                    return Path.GetTempFileName();
+                case DataType.Network:
+                    return Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                default:
+                    throw new NotImplementedException($"Data type {dataType} not supported!");
+            }
         }
     }
 }
