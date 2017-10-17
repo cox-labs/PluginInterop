@@ -43,8 +43,7 @@ namespace PluginInterop
             return new Parameter[] {CodeFileParam()};
         }
 
-        public void ProcessData(INetworkData ndata, Parameters param, ref IMatrixData[] supplTables, ref IDocumentData[] documents,
-            ProcessInfo processInfo)
+        public void ProcessData(INetworkData ndata, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
         {
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
             var inFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
@@ -57,10 +56,7 @@ namespace PluginInterop
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return;
             };
-            if (supplTables == null)
-            {
-                supplTables = Enumerable.Range(0, NumSupplTables).Select(i => PerseusFactory.CreateMatrixData()) .ToArray();
-            }
+            var supplTables = Enumerable.Range(0, NumSupplTables).Select(i => PerseusFactory.CreateMatrixData()) .ToArray();
             var suppFiles = supplTables.Select(i => Path.GetTempFileName()).ToArray();
             var args = $"{codeFile} {paramFile} {inFolder} {outFolder} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
@@ -75,6 +71,7 @@ namespace PluginInterop
             {
                 PerseusUtils.ReadMatrixFromFile(supplTables[i], processInfo, suppFiles[i], '\t');
             }
+            supplData = supplTables;
         }
 
         /// <summary>

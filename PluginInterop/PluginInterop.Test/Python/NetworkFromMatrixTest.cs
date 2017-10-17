@@ -29,10 +29,9 @@ namespace PluginInterop.Test.Python
             Assert.IsTrue(string.IsNullOrEmpty(errString));
             parameters.GetParam<string>("Script file").Value = codeFile;
             var ndata = PerseusFactory.CreateNetworkData();
-            IMatrixData[] suppData = null;
-            IDocumentData[] suppDocs = null;
+            IData[] suppData = null;
             var pinfo = new ProcessInfo(new Settings(), s => { }, i => { }, 1, i => { });
-            processing.ProcessData(mdata, ndata, parameters,ref suppData, ref suppDocs, pinfo);
+            processing.ProcessData(mdata, ndata, parameters, ref suppData, pinfo);
             Assert.IsTrue(string.IsNullOrEmpty(pinfo.ErrString), pinfo.ErrString);
         }
     }

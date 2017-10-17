@@ -46,8 +46,8 @@
     <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusApi, Version=1.6.0.232, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PerseusApi.1.6.0.232\lib\net45\PerseusApi.dll</HintPath>
+    <Reference Include="PerseusApi, Version=1.6.0.233, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PerseusApi.1.6.0.233\lib\net45\PerseusApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
