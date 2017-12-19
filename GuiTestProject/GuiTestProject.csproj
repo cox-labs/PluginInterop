@@ -32,14 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BaseLib, Version=1.6.0.314, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLib.1.6.0.314\lib\net45\BaseLib.dll</HintPath>
+    <Reference Include="BaseLib, Version=1.6.0.346, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaseLib.1.6.0.346\lib\net45\BaseLib.dll</HintPath>
     </Reference>
-    <Reference Include="BaseLibS, Version=1.6.0.314, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLibS.1.6.0.314\lib\net45\BaseLibS.dll</HintPath>
+    <Reference Include="BaseLibS, Version=1.6.0.346, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaseLibS.1.6.0.346\lib\net45\BaseLibS.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusApi, Version=1.6.0.233, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusApi.1.6.0.233\lib\net45\PerseusApi.dll</HintPath>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="PerseusApi, Version=1.6.0.279, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusApi.1.6.0.279\lib\net45\PerseusApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
