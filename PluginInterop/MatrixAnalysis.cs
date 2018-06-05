@@ -20,24 +20,6 @@ namespace PluginInterop
         public virtual string Heading => "External";
 
 
-        /// <summary>
-        /// Create the parameters for the GUI with default of specific 'Code file' parameter and generic 'Executable'.
-        /// Includes buttons /// for preview downloads of 'Data' and 'Parameters' for development purposes.
-        /// Overwrite <see cref="SpecificParameters"/> to add specific parameter. Overwrite this function for full control.
-        /// </summary>
-        /// <param name="mdata"></param>
-        /// <param name="errString"></param>
-        /// <returns></returns>
-        public virtual Parameters GetParameters(IMatrixData mdata, ref string errString)
-        {
-            Parameters parameters = new Parameters();
-            parameters.AddParameterGroup(SpecificParameters(mdata, ref errString), "specific", false);
-            var previewButton = Utils.DataPreviewButton(mdata);
-            var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
-            parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "generic", false);
-            return parameters;
-        }
-
         public IAnalysisResult AnalyzeData(IMatrixData mdata, Parameters param, ProcessInfo processInfo)
         {
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
@@ -51,7 +33,8 @@ namespace PluginInterop
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return null;
             }
-            var args = $"{codeFile} {paramFile} {inFile} {outFile}";
+	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
+            var args = $"{codeFile} {additionalArguments} {inFile} {outFile}";
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string errorString) != 0)
             {
                 processInfo.ErrString = errorString;
@@ -61,17 +44,29 @@ namespace PluginInterop
         }
 
         /// <summary>
-        /// Create specific processing parameters. Defaults to 'Code file'. You can provide custom parameters
-        /// by overriding this function. Called by <see cref="GetParameters"/>.
+        /// Create the parameters for the GUI with default of generic 'Code file'
+        /// and 'Additional arguments' parameters. Overwrite this function for custom structured parameters.
         /// </summary>
-        /// <param name="mdata"></param>
-        /// <param name="errString"></param>
-        /// <returns></returns>
-        protected virtual Parameter[] SpecificParameters(IMatrixData mdata, ref string errString)
+	    protected virtual Parameter[] SpecificParameters(IMatrixData data, ref string errString)
+	    {
+			return new Parameter[] {CodeFileParam(), AdditionalArgumentsParam()};	
+	    }
+
+        /// <summary>
+        /// Create the parameters for the GUI with default of generic 'Executable', 'Code file' and 'Additional arguments' parameters.
+        /// Includes buttons for preview downloads of 'Data' and 'Parameters' for development purposes.
+        /// Overwrite <see cref="SpecificParameters"/> to add specific parameter. Overwrite this function for full control.
+        /// </summary>
+        public virtual Parameters GetParameters(IMatrixData data, ref string errString)
         {
-            return new Parameter[] { CodeFileParam() };
+            Parameters parameters = new Parameters();
+            parameters.AddParameterGroup(SpecificParameters(data, ref errString), "Specific", false);
+            var previewButton = Utils.DataPreviewButton(data);
+            var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
+            parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "Generic", false);
+            return parameters;
         }
 
-        protected abstract IAnalysisResult GenerateResult(string outFile, IMatrixData mdata, ProcessInfo pinfo);
+	    protected abstract IAnalysisResult GenerateResult(string outFile, IMatrixData mdata, ProcessInfo pinfo);
     }
 }

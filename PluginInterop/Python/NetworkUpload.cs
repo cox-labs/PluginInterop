@@ -4,9 +4,9 @@ using BaseLibS.Param;
 
 namespace PluginInterop.Python
 {
-    public class MatrixProcessing : PluginInterop.MatrixProcessing
+    public class NetworkUpload : PluginInterop.NetworkUpload
     {
-        public override string Name => "Matrix => Python";
+        public override string Name => "Network => Python";
         public override string Description => "Run Python script";
 
         protected override string CodeFilter => "Python script, *.py | *.py";

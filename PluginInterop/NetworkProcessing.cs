@@ -31,18 +31,6 @@ namespace PluginInterop
         public virtual int NumDocuments { get; }
         public virtual DataType[] SupplDataTypes => Enumerable.Repeat(DataType.Matrix, NumSupplTables).ToArray();
 
-        /// <summary>
-        /// Create specific processing parameters. Defaults to 'Code file'. You can provide custom parameters
-        /// by overriding this function. Called by <see cref="GetParameters"/>.
-        /// </summary>
-        /// <param name="mdata"></param>
-        /// <param name="errString"></param>
-        /// <returns></returns>
-        protected virtual Parameter[] SpecificParameters(INetworkData ndata, ref string errString)
-        {
-            return new Parameter[] {CodeFileParam()};
-        }
-
         public void ProcessData(INetworkData ndata, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
         {
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
@@ -57,7 +45,8 @@ namespace PluginInterop
                 return;
             };
             var suppFiles = SupplDataTypes.Select(Utils.CreateTemporaryPath).ToArray();
-            var args = $"{codeFile} {paramFile} {inFolder} {outFolder} {string.Join(" ", suppFiles)}";
+	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
+            var args = $"{codeFile} {additionalArguments} {inFolder} {outFolder} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {
@@ -70,20 +59,26 @@ namespace PluginInterop
         }
 
         /// <summary>
-        /// Create the parameters for the GUI with default of specific 'Code file' parameter and generic 'Executable'.
-        /// Includes buttons /// for preview downloads of 'Data' and 'Parameters' for development purposes.
+        /// Create the parameters for the GUI with default of generic 'Code file'
+        /// and 'Additional arguments' parameters. Overwrite this function for custom structured parameters.
+        /// </summary>
+	    protected virtual Parameter[] SpecificParameters(INetworkData data, ref string errString)
+	    {
+			return new Parameter[] {CodeFileParam(), AdditionalArgumentsParam()};	
+	    }
+
+        /// <summary>
+        /// Create the parameters for the GUI with default of generic 'Executable', 'Code file' and 'Additional arguments' parameters.
+        /// Includes buttons for preview downloads of 'Data' and 'Parameters' for development purposes.
         /// Overwrite <see cref="SpecificParameters"/> to add specific parameter. Overwrite this function for full control.
         /// </summary>
-        /// <param name="ndata"></param>
-        /// <param name="errString"></param>
-        /// <returns></returns>
-        public Parameters GetParameters(INetworkData ndata, ref string errString)
+        public virtual Parameters GetParameters(INetworkData data, ref string errString)
         {
             Parameters parameters = new Parameters();
-            parameters.AddParameterGroup(SpecificParameters(ndata, ref errString), "specific", false);
-            var previewButton = Utils.DataPreviewButton(ndata);
+            parameters.AddParameterGroup(SpecificParameters(data, ref errString), "Specific", false);
+            var previewButton = Utils.DataPreviewButton(data);
             var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
-            parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "generic", false);
+            parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "Generic", false);
             return parameters;
         }
     }

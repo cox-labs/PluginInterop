@@ -6,11 +6,13 @@ using BaseLibS.Param;
 using PerseusApi.Document;
 using PerseusApi.Generic;
 using PerseusApi.Matrix;
+using PerseusApi.Network;
 using PerseusApi.Utils;
+using PerseusLibS.Data.Network;
 
 namespace PluginInterop
 {
-    public abstract class MatrixUpload : InteropBase, IMatrixUpload
+    public abstract class NetworkUpload : InteropBase, INetworkUpload
     {
         public abstract string Name { get; }
         public abstract string Description { get; }
@@ -24,6 +26,7 @@ namespace PluginInterop
         public int NumSupplTables { get; }
         public string[] HelpDocuments { get; }
         public int NumDocuments { get; }
+        public virtual DataType[] SupplDataTypes => Enumerable.Repeat(DataType.Matrix, NumSupplTables).ToArray();
 
         /// <summary>
         /// Create the parameters for the GUI with default of 'Code file' and 'Executable'. Includes buttons
@@ -48,36 +51,28 @@ namespace PluginInterop
             return new Parameter[] { CodeFileParam(), AdditionalArgumentsParam() };
         }
 
-        public void LoadData(IMatrixData mdata, Parameters param, ref IMatrixData[] supplTables, ref IDocumentData[] documents,
-            ProcessInfo processInfo)
+        public void LoadData(INetworkData ndata, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
         {
             var remoteExe = GetExectuable(param);
             var paramFile = Path.GetTempFileName();
             param.ToFile(paramFile);
-            var outFile = Path.GetTempFileName();
+            var outFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             if (!TryGetCodeFile(param, out string codeFile))
             {
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return;
             };
-            if (supplTables == null)
-            {
-                supplTables = Enumerable.Range(0, NumSupplTables).Select(i => PerseusFactory.CreateMatrixData()) .ToArray();
-            }
-            var suppFiles = supplTables.Select(i => Path.GetTempFileName()).ToArray();
+            var suppFiles = SupplDataTypes.Select(Utils.CreateTemporaryPath).ToArray();
 	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
-            var args = $"{codeFile} {additionalArguments} {outFile} {string.Join(" ", suppFiles)}";
+            var args = $"{codeFile} {additionalArguments} {outFolder} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {
                 processInfo.ErrString = processInfoErrString;
                 return;
             };
-            PerseusUtils.ReadMatrixFromFile(mdata, processInfo, outFile, '\t');
-            for (int i = 0; i < NumSupplTables; i++)
-            {
-                PerseusUtils.ReadMatrixFromFile(supplTables[i], processInfo, suppFiles[i], '\t');
-            }
+            FolderFormat.Read(ndata, outFolder, processInfo);
+            supplData = Utils.ReadSupplementaryData(suppFiles, SupplDataTypes, processInfo);
         }
     }
 }

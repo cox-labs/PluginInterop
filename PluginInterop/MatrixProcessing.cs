@@ -34,8 +34,6 @@ namespace PluginInterop
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
             var inFile = Path.GetTempFileName();
             PerseusUtils.WriteMatrixToFile(mdata, inFile, false);
-            var paramFile = Path.GetTempFileName();
-            param.ToFile(paramFile);
             var outFile = Path.GetTempFileName();
             if (!TryGetCodeFile(param, out string codeFile))
             {
@@ -47,7 +45,8 @@ namespace PluginInterop
                 supplTables = Enumerable.Range(0, NumSupplTables).Select(i => PerseusFactory.CreateMatrixData()) .ToArray();
             }
             var suppFiles = supplTables.Select(i => Path.GetTempFileName()).ToArray();
-            var args = $"{codeFile} {paramFile} {inFile} {outFile} {string.Join(" ", suppFiles)}";
+	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
+            var args = $"{codeFile} {additionalArguments} {inFile} {outFile} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {
@@ -63,33 +62,27 @@ namespace PluginInterop
         }
 
         /// <summary>
-        /// Create the parameters for the GUI with default of specific 'Code file' parameter and generic 'Executable'.
-        /// Includes buttons /// for preview downloads of 'Data' and 'Parameters' for development purposes.
-        /// Overwrite <see cref="SpecificParameters"/> to add specific parameter. Overwrite this function for full control.
+        /// Create the parameters for the GUI with default of generic 'Code file'
+        /// and 'Additional arguments' parameters. Overwrite this function for custom structured parameters.
         /// </summary>
-        /// <param name="mdata"></param>
-        /// <param name="errString"></param>
-        /// <returns></returns>
-        public virtual Parameters GetParameters(IMatrixData mdata, ref string errString)
-        {
-            Parameters parameters = new Parameters();
-            parameters.AddParameterGroup(SpecificParameters(mdata, ref errString), "specific", false);
-            var previewButton = Utils.DataPreviewButton(mdata);
-            var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
-            parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "generic", false);
-            return parameters;
-        }
+	    protected virtual Parameter[] SpecificParameters(IMatrixData data, ref string errString)
+	    {
+			return new Parameter[] {CodeFileParam(), AdditionalArgumentsParam()};	
+	    }
 
         /// <summary>
-        /// Create specific processing parameters. Defaults to 'Code file'. You can provide custom parameters
-        /// by overriding this function. Called by <see cref="GetParameters"/>.
+        /// Create the parameters for the GUI with default of generic 'Executable', 'Code file' and 'Additional arguments' parameters.
+        /// Includes buttons for preview downloads of 'Data' and 'Parameters' for development purposes.
+        /// Overwrite <see cref="SpecificParameters"/> to add specific parameter. Overwrite this function for full control.
         /// </summary>
-        /// <param name="mdata"></param>
-        /// <param name="errString"></param>
-        /// <returns></returns>
-        protected virtual Parameter[] SpecificParameters(IMatrixData mdata, ref string errString)
+        public virtual Parameters GetParameters(IMatrixData data, ref string errString)
         {
-            return new Parameter[] {CodeFileParam()};
+            Parameters parameters = new Parameters();
+            parameters.AddParameterGroup(SpecificParameters(data, ref errString), "Specific", false);
+            var previewButton = Utils.DataPreviewButton(data);
+            var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
+            parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "Generic", false);
+            return parameters;
         }
     }
 }

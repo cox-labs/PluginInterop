@@ -49,3 +49,4 @@ _ReSharper*
 /PluginInterop/conf/perseus/headingOrderMatrixAnalysis.txt
 /PluginInterop/conf/perseus/headingOrderMatrixProcessing.txt
 /PluginInterop/conf/spSpecies.txt
+/.vs/PluginInterop/v15/Server/sqlite3

@@ -16,8 +16,24 @@ namespace PluginInterop
 {
     public static class Utils
     {
+		/// <summary>
+		/// Create a preview button for the GUI which can be used save the data to file.
+		/// This is especially useful for development and debugging.
+		/// </summary>
+	    public static ButtonParamWf DataPreviewButton(IData data)
+	    {
+		    if (data is IMatrixData mdata)
+		    {
+			    return MatrixDataPreviewButton(mdata);
+		    }
+		    if (data is INetworkData ndata)
+		    {
+			    return NetworkDataPreviewButton(ndata);
+		    }
+			throw new NotImplementedException($"{nameof(DataPreviewButton)} not implemented for type {data.GetType()}!");
+	    }
 
-        public static ButtonParamWf DataPreviewButton(IMatrixData mdata)
+	    public static ButtonParamWf MatrixDataPreviewButton(IMatrixData mdata)
         {
             return new ButtonParamWf("Download data for preview", "save", (o, args) =>
             {
@@ -33,7 +49,7 @@ namespace PluginInterop
             });
         }
 
-        public static ButtonParamWf DataPreviewButton(INetworkData ndata)
+        public static ButtonParamWf NetworkDataPreviewButton(INetworkData ndata)
         {
             return new ButtonParamWf("Download data for preview", "save", (o, args) =>
             {
@@ -48,6 +64,10 @@ namespace PluginInterop
             });
         }
 
+		/// <summary>
+		/// Create a preview button for the GUI which can be used save the parameters to file.
+		/// This is especially useful for development and debugging.
+		/// </summary>
         public static ButtonParamWf ParametersPreviewButton(Parameters parameters)
         {
             return new ButtonParamWf("Download parameter for preview", "save", (o, args) =>
@@ -74,11 +94,6 @@ namespace PluginInterop
         /// Runs the executable with the provided arguments. Returns the exit code of the process,
         /// where 0 indicates success.
         /// </summary>
-        /// <param name="remoteExe"></param>
-        /// <param name="args"></param>
-        /// <param name="status"></param>
-        /// <param name="errorString"></param>
-        /// <returns></returns>
         public static int RunProcess(string remoteExe, string args, Action<string> status, out string errorString)
         {
             errorString = null; // no error
@@ -124,11 +139,6 @@ namespace PluginInterop
         /// <summary>
         /// Read supplementary files according to file paths and data types.
         /// </summary>
-        /// <param name="suppFiles"></param>
-        /// <param name="supplDataTypes"></param>
-        /// <param name="processInfo"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public static IData[] ReadSupplementaryData(string[] suppFiles, DataType[] supplDataTypes, ProcessInfo processInfo)
         {
             var numSupplTables = suppFiles.Length;
@@ -157,9 +167,6 @@ namespace PluginInterop
         /// <summary>
         /// Create a temporary path for a specific data type.
         /// </summary>
-        /// <param name="dataType"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public static string CreateTemporaryPath(DataType dataType)
         {
             switch (dataType)
