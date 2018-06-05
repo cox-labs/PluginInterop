@@ -79,7 +79,7 @@
     <Compile Include="MatrixAnalysis.cs" />
     <Compile Include="NetworkUpload.cs" />
     <Compile Include="NetworkProcessing.cs" />
-    <Compile Include="Python\NetworkProcessing - Copy.cs" />
+    <Compile Include="Python\NetworkUpload.cs" />
     <Compile Include="Python\NetworkProcessing.cs" />
     <Compile Include="Python\NetworkFromMatrix.cs" />
     <Compile Include="NetworkFromMatrix.cs" />
