@@ -34,8 +34,6 @@ namespace PluginInterop
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
             var inFile = Path.GetTempFileName();
             PerseusUtils.WriteMatrixToFile(inData, inFile, false);
-            var paramFile = Path.GetTempFileName();
-            param.ToFile(paramFile);
             var outFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             if (!TryGetCodeFile(param, out string codeFile))
             {
@@ -43,8 +41,8 @@ namespace PluginInterop
                 return;
             }
             var suppFiles = SupplDataTypes.Select(Utils.CreateTemporaryPath).ToArray();
-	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
-            var args = $"{codeFile} {additionalArguments} {inFile} {outFolder} {string.Join(" ", suppFiles)}";
+	        var commandLineArguments = GetCommandLineArguments(param);
+            var args = $"{codeFile} {commandLineArguments} {inFile} {outFolder} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {

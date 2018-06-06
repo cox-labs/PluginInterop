@@ -51,17 +51,15 @@ namespace PluginInterop
         public void LoadData(INetworkData ndata, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
         {
             var remoteExe = GetExectuable(param);
-            var paramFile = Path.GetTempFileName();
-            param.ToFile(paramFile);
             var outFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             if (!TryGetCodeFile(param, out string codeFile))
             {
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return;
-            };
+            }
             var suppFiles = SupplDataTypes.Select(Utils.CreateTemporaryPath).ToArray();
-	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
-            var args = $"{codeFile} {additionalArguments} {outFolder} {string.Join(" ", suppFiles)}";
+	        var commandLineArguments = GetCommandLineArguments(param);
+            var args = $"{codeFile} {commandLineArguments} {outFolder} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {

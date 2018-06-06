@@ -44,8 +44,8 @@ namespace PluginInterop
                 supplTables = Enumerable.Range(0, NumSupplTables).Select(i => PerseusFactory.CreateMatrixData()) .ToArray();
             }
             var suppFiles = supplTables.Select(i => Path.GetTempFileName()).ToArray();
-	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
-            var args = $"{codeFile} {additionalArguments} {inFile} {outFile} {string.Join(" ", suppFiles)}";
+	        var commandLineArguments = GetCommandLineArguments(param);
+            var args = $"{codeFile} {commandLineArguments} {inFile} {outFile} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {

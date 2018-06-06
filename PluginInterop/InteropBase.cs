@@ -48,6 +48,15 @@ namespace PluginInterop
             return true;
         }
 
+		/// <summary>
+		/// Get parameters passed on the command line. Defaults to <see cref="AdditionalArgumentsLabel"/>.
+		/// Other plugins might save parameters to XML file and pass the file path.
+		/// </summary>
+		protected virtual string GetCommandLineArguments(Parameters param)
+		{
+	        return param.GetParam<string>(AdditionalArgumentsLabel).Value;
+		}
+
         /// <summary>
         /// Extract the executable name. See <see cref="ExecutableParam"/>.
         /// </summary>

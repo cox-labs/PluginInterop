@@ -25,16 +25,14 @@ namespace PluginInterop
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
             var inFile = Path.GetTempFileName();
             PerseusUtils.WriteMatrixToFile(mdata, inFile);
-            var paramFile = Path.GetTempFileName();
-            param.ToFile(paramFile);
             var outFile = Path.GetTempFileName();
             if (!TryGetCodeFile(param, out string codeFile))
             {
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return null;
             }
-	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
-            var args = $"{codeFile} {additionalArguments} {inFile} {outFile}";
+	        var commandLineArguments = GetCommandLineArguments(param);
+            var args = $"{codeFile} {commandLineArguments} {inFile} {outFile}";
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string errorString) != 0)
             {
                 processInfo.ErrString = errorString;

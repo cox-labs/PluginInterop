@@ -32,17 +32,15 @@ namespace PluginInterop
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
             var inFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             FolderFormat.Write(ndata, inFolder);
-            var paramFile = Path.GetTempFileName();
-            param.ToFile(paramFile);
             var outFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             if (!TryGetCodeFile(param, out string codeFile))
             {
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return;
-            };
+            }
             var suppFiles = SupplDataTypes.Select(Utils.CreateTemporaryPath).ToArray();
-	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
-            var args = $"{codeFile} {additionalArguments} {inFolder} {outFolder} {string.Join(" ", suppFiles)}";
+	        var commandLineArguments = GetCommandLineArguments(param);
+			var args = $"{codeFile} {commandLineArguments} {inFolder} {outFolder} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {

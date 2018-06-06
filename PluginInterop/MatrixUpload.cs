@@ -52,8 +52,6 @@ namespace PluginInterop
             ProcessInfo processInfo)
         {
             var remoteExe = GetExectuable(param);
-            var paramFile = Path.GetTempFileName();
-            param.ToFile(paramFile);
             var outFile = Path.GetTempFileName();
             if (!TryGetCodeFile(param, out string codeFile))
             {
@@ -65,8 +63,8 @@ namespace PluginInterop
                 supplTables = Enumerable.Range(0, NumSupplTables).Select(i => PerseusFactory.CreateMatrixData()) .ToArray();
             }
             var suppFiles = supplTables.Select(i => Path.GetTempFileName()).ToArray();
-	        var additionalArguments = param.GetParam<string>(AdditionalArgumentsLabel).Value;
-            var args = $"{codeFile} {additionalArguments} {outFile} {string.Join(" ", suppFiles)}";
+	        var commandLineArguments = GetCommandLineArguments(param);
+            var args = $"{codeFile} {commandLineArguments} {outFile} {string.Join(" ", suppFiles)}";
             Debug.WriteLine($"executing > {remoteExe} {args}");
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string processInfoErrString) != 0)
             {

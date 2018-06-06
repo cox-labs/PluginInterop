@@ -50,3 +50,4 @@ _ReSharper*
 /PluginInterop/conf/perseus/headingOrderMatrixProcessing.txt
 /PluginInterop/conf/spSpecies.txt
 /.vs/PluginInterop/v15/Server/sqlite3
+/.vs/PluginInterop/DesignTimeBuild
