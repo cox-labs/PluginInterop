@@ -3,11 +3,8 @@ using System.IO;
 using System.Linq;
 using BaseLibS.Graph;
 using BaseLibS.Param;
-using PerseusApi.Document;
 using PerseusApi.Generic;
-using PerseusApi.Matrix;
 using PerseusApi.Network;
-using PerseusApi.Utils;
 using PerseusLibS.Data.Network;
 
 namespace PluginInterop

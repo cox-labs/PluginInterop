@@ -1,10 +1,8 @@
-using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using BaseLibS.Graph;
 using BaseLibS.Param;
-using PerseusApi.Document;
 using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Network;
@@ -74,7 +72,12 @@ namespace PluginInterop
         public virtual Parameters GetParameters(IMatrixData data, ref string errString)
         {
             Parameters parameters = new Parameters();
-            parameters.AddParameterGroup(SpecificParameters(data, ref errString), "Specific", false);
+	        var specificParameters = SpecificParameters(data, ref errString);
+	        if (!string.IsNullOrEmpty(errString))
+	        {
+		        return null;
+	        }
+            parameters.AddParameterGroup(specificParameters, "Specific", false);
             var previewButton = Utils.DataPreviewButton(data);
             var parametersPreviewButton = Utils.ParametersPreviewButton(parameters);
             parameters.AddParameterGroup(new Parameter[] { ExecutableParam(), previewButton, parametersPreviewButton }, "Generic", false);

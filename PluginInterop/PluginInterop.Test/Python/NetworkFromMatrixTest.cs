@@ -2,9 +2,7 @@
 using System.IO;
 using System.Text;
 using NUnit.Framework;
-using PerseusApi.Document;
 using PerseusApi.Generic;
-using PerseusApi.Matrix;
 using PerseusApi.Utils;
 
 namespace PluginInterop.Test.Python
