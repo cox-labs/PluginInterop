@@ -10,7 +10,7 @@ using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Network;
 using PerseusApi.Utils;
-using PerseusLibS.Data.Network;
+using PerseusApi.Utils.Network;
 
 namespace PluginInterop
 {

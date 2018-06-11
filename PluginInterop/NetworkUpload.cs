@@ -5,7 +5,7 @@ using BaseLibS.Graph;
 using BaseLibS.Param;
 using PerseusApi.Generic;
 using PerseusApi.Network;
-using PerseusLibS.Data.Network;
+using PerseusApi.Utils.Network;
 
 namespace PluginInterop
 {
@@ -65,7 +65,7 @@ namespace PluginInterop
             {
                 processInfo.ErrString = processInfoErrString;
                 return;
-            };
+            }
             FolderFormat.Read(ndata, outFolder, processInfo);
             supplData = Utils.ReadSupplementaryData(suppFiles, SupplDataTypes, processInfo);
         }

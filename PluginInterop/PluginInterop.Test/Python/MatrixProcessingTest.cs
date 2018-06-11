@@ -19,6 +19,7 @@ namespace PluginInterop.Test.Python
             {
                 Assert.Inconclusive("Python not installed");
             }
+			Assert.Inconclusive("Cannot be tested without dependency on PerseusLibS");
             var codeString = Properties.Resources.matrix_with_supp_tables;
             var codeFile = Path.GetTempFileName();
             File.WriteAllText(codeFile, Encoding.UTF8.GetString(codeString));
@@ -30,7 +31,7 @@ namespace PluginInterop.Test.Python
             parameters.GetParam<string>("Script file").Value = codeFile;
             IMatrixData[] suppData = null;
             IDocumentData[] suppDocs = null;
-            var pinfo = new ProcessInfo(new Settings(), s => { }, i => { }, 1, i => { });
+            var pinfo = new ProcessInfo(new Settings(), s => { }, i => { }, 1);
             processing.ProcessData(mdata, parameters,ref suppData, ref suppDocs, pinfo);
             Assert.IsTrue(string.IsNullOrEmpty(pinfo.ErrString), pinfo.ErrString);
             Assert.AreEqual(2, suppData.Length);

@@ -33,11 +33,11 @@
     <DocumentationFile>bin\Release\PluginInterop.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BaseLib, Version=1.6.0.346, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLib.1.6.0.346\lib\net45\BaseLib.dll</HintPath>
+    <Reference Include="BaseLib, Version=1.6.0.409, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaseLib.1.6.0.409\lib\net45\BaseLib.dll</HintPath>
     </Reference>
-    <Reference Include="BaseLibS, Version=1.6.0.346, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLibS.1.6.0.346\lib\net45\BaseLibS.dll</HintPath>
+    <Reference Include="BaseLibS, Version=1.6.0.409, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BaseLibS.1.6.0.409\lib\net45\BaseLibS.dll</HintPath>
     </Reference>
     <Reference Include="Calc">
       <HintPath>..\..\photon\PluginPHOTON\PluginPHOTON\Calc.dll</HintPath>
@@ -45,18 +45,15 @@
     <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusApi, Version=1.6.0.279, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusApi.1.6.0.279\lib\net45\PerseusApi.dll</HintPath>
-    </Reference>
-    <Reference Include="PerseusLibS, Version=1.6.0.1468, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusLibS.1.6.0.1468\lib\net45\PerseusLibS.dll</HintPath>
+    <Reference Include="PerseusApi, Version=1.6.0.345, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PerseusApi.1.6.0.345\lib\net45\PerseusApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Text.Encoding" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -109,6 +106,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\python-logo-master-v3-TM-flattened.png" />
   </ItemGroup>
