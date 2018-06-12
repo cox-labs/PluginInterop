@@ -1,8 +1,10 @@
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using BaseLibS.Param;
 
 namespace PluginInterop.R
 {
@@ -78,5 +80,37 @@ namespace PluginInterop.R
                 return false;
             }
         }
+
+		/// <summary>
+		/// Try to find R executable and show green light if found.
+		/// </summary>
+	    public static FileParam CreateCheckedFileParam(string interpreterLabel, string interpreterFilter, Python.Utils.TryFindExecutableDelegate tryFindExecutable)
+	    {
+		    void CheckFileName(string s, CheckedFileParamControl control)
+		    {
+			    if (string.IsNullOrWhiteSpace(s))
+			    {
+				    return;
+			    }
+			    if (CheckRInstallation(s))
+			    {
+				    control.selectButton.BackColor = Color.LimeGreen;
+				    control.ToolTip.SetToolTip(control.selectButton, "R installation was found");
+			    }
+			    else
+			    {
+				    control.selectButton.BackColor = Color.Red;
+				    control.ToolTip.SetToolTip(control.selectButton, "A valid R installation was not found. Make sure to select a R installation with 'PerseusR' installed");
+			    }
+		    }
+
+		    var fileParam = new CheckedFileParamWf(interpreterLabel, CheckFileName) {Filter = interpreterFilter};
+		    if (tryFindExecutable(out string path))
+		    {
+			    fileParam.Value = path;
+		    }
+		    return fileParam;
+	    }
+
     }
 }

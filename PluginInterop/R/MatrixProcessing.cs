@@ -16,33 +16,10 @@ namespace PluginInterop.R
         protected override string CodeFilter => "R script, *.R | *.R";
         protected override FileParam ExecutableParam()
         {
-            Action<string, CheckedFileParamControl> checkFileName = (s, control) =>
-            {
-                if (string.IsNullOrWhiteSpace(s))
-                {
-                    return;
-                }
-                if (Utils.CheckRInstallation(s))
-                {
-                    control.selectButton.BackColor = Color.LimeGreen;
-                    control.ToolTip.SetToolTip(control.selectButton, "R installation was found");
-                }
-                else
-                {
-                    control.selectButton.BackColor = Color.Red;
-                    control.ToolTip.SetToolTip(control.selectButton, "A valid R installation was not found. Make sure to select a R installation with 'PerseusR' installed");
-                };
-            };
-            var fileParam = new CheckedFileParamWf(InterpreterLabel, checkFileName) {Filter = InterpreterFilter};
-            string path;
-            if (TryFindExecutable(out path))
-            {
-                fileParam.Value = path;
-            }
-            return fileParam;
+	        return Utils.CreateCheckedFileParam(InterpreterLabel, InterpreterFilter, TryFindExecutable);
         }
 
-        protected override bool TryFindExecutable(out string path)
+	    protected override bool TryFindExecutable(out string path)
         {
             return Utils.TryFindRExecutable(out path);
         }

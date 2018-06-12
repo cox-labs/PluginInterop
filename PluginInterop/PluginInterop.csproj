@@ -92,6 +92,7 @@
     <Compile Include="Python\MatrixProcessing.cs" />
     <Compile Include="Python\MatrixUpload.cs" />
     <Compile Include="Python\Utils.cs" />
+    <Compile Include="R\MatrixAnalysis.cs" />
     <Compile Include="R\MatrixProcessing.cs" />
     <Compile Include="R\Utils.cs" />
     <Compile Include="Utils.cs" />
