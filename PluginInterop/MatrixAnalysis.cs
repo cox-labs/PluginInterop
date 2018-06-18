@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using BaseLibS.Graph;
 using BaseLibS.Param;
 using PerseusApi.Generic;
@@ -18,6 +19,7 @@ namespace PluginInterop
         public virtual string Url { get; }
         public virtual Bitmap2 DisplayImage { get; } 
         public virtual string Heading => "External";
+        public virtual DataType[] SupplDataTypes => new DataType[0];
 
 
         public IAnalysisResult AnalyzeData(IMatrixData mdata, Parameters param, ProcessInfo processInfo)
@@ -25,20 +27,22 @@ namespace PluginInterop
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
             var inFile = Path.GetTempFileName();
             PerseusUtils.WriteMatrixToFile(mdata, inFile);
-            var outFile = Path.GetTempFileName();
-            if (!TryGetCodeFile(param, out string codeFile))
+			var outFiles = new[] { Path.GetTempFileName() }
+						  .Concat(SupplDataTypes.Select(dataType => Path.GetTempFileName()))
+						  .ToArray();
+			if (!TryGetCodeFile(param, out string codeFile))
             {
                 processInfo.ErrString = $"Code file '{codeFile}' was not found";
                 return null;
             }
 	        var commandLineArguments = GetCommandLineArguments(param);
-            var args = $"{codeFile} {commandLineArguments} {inFile} {outFile}";
+            var args = $"{codeFile} {commandLineArguments} {inFile} {string.Join(" ", outFiles)}";
             if (Utils.RunProcess(remoteExe, args, processInfo.Status, out string errorString) != 0)
             {
                 processInfo.ErrString = errorString;
                 return null;
             }
-            return GenerateResult(outFile, mdata, processInfo);
+            return GenerateResult(outFiles, mdata, processInfo);
         }
 
         /// <summary>
@@ -47,15 +51,15 @@ namespace PluginInterop
         /// </summary>
 	    protected virtual Parameter[] SpecificParameters(IMatrixData data, ref string errString)
 	    {
-			return new Parameter[] {CodeFileParam(), AdditionalArgumentsParam()};	
-	    }
+			return new Parameter[] { CodeFileParam(), AdditionalArgumentsParam() };
+		}
 
-        /// <summary>
-        /// Create the parameters for the GUI with default of generic 'Executable', 'Code file' and 'Additional arguments' parameters.
-        /// Includes buttons for preview downloads of 'Data' and 'Parameters' for development purposes.
-        /// Overwrite <see cref="SpecificParameters"/> to add specific parameter. Overwrite this function for full control.
-        /// </summary>
-        public virtual Parameters GetParameters(IMatrixData data, ref string errString)
+		/// <summary>
+		/// Create the parameters for the GUI with default of generic 'Executable', 'Code file' and 'Additional arguments' parameters.
+		/// Includes buttons for preview downloads of 'Data' and 'Parameters' for development purposes.
+		/// Overwrite <see cref="SpecificParameters"/> to add specific parameter. Overwrite this function for full control.
+		/// </summary>
+		public virtual Parameters GetParameters(IMatrixData data, ref string errString)
         {
             Parameters parameters = new Parameters();
 	        var specificParameters = SpecificParameters(data, ref errString);
@@ -70,6 +74,6 @@ namespace PluginInterop
             return parameters;
         }
 
-	    protected abstract IAnalysisResult GenerateResult(string outFile, IMatrixData mdata, ProcessInfo pinfo);
+	    protected abstract IAnalysisResult GenerateResult(string[] outFiles, IMatrixData mdata, ProcessInfo pinfo);
     }
 }
