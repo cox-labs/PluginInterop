@@ -41,9 +41,6 @@
     <Reference Include="BaseLibS, Version=1.6.0.409, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\BaseLibS.1.6.0.409\lib\net45\BaseLibS.dll</HintPath>
     </Reference>
-    <Reference Include="Calc">
-      <HintPath>..\..\..\photon\PluginPHOTON\PluginPHOTON\Calc.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
