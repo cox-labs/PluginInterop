@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using BaseLibS.Param;
 
@@ -50,11 +51,17 @@ namespace PluginInterop
 
 		/// <summary>
 		/// Get parameters passed on the command line. Defaults to <see cref="AdditionalArgumentsLabel"/>.
-		/// Other plugins might save parameters to XML file and pass the file path.
+		/// Other plugins might save parameters to XML file and pass the file path <see cref="Utils.WriteParametersToFile"/>.
 		/// </summary>
 		protected virtual string GetCommandLineArguments(Parameters param)
 		{
-	        return param.GetParam<string>(AdditionalArgumentsLabel).Value;
+	        var parameter = param.GetParamNoException(AdditionalArgumentsLabel);
+			if (parameter == null)
+			{
+				throw new Exception($"Expected standard parameter \"{AdditionalArgumentsLabel}\" could not be found. " +
+				                    $"You might have to override {nameof(GetCommandLineArguments)} to account for custom parameters.");
+			}
+			return  parameter.StringValue;
 		}
 
         /// <summary>

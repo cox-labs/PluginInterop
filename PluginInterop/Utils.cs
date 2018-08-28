@@ -14,8 +14,22 @@ using PerseusApi.Utils.Network;
 
 namespace PluginInterop
 {
+	/// <summary>
+	/// Provides a number of utility functions
+	/// </summary>
     public static class Utils
     {
+		/// <summary>
+		/// Write parameters to temporary file.
+		/// Useful as alternative implementation of <see cref="InteropBase.GetCommandLineArguments"/>.
+		/// </summary>
+	    public static string WriteParametersToFile(Parameters param)
+	    {
+		    var tempFile = Path.GetTempFileName();
+			param.ToFile(tempFile);
+		    return tempFile;
+	    }
+
 		/// <summary>
 		/// Create a preview button for the GUI which can be used save the data to file.
 		/// This is especially useful for development and debugging.

@@ -10,6 +10,11 @@ using PerseusApi.Utils;
 
 namespace PluginInterop
 {
+	/// <summary>
+	/// Language agnostic MatrixProcessing implementation.
+	///
+	/// This class serves as a basis for language-specific implementations.
+	/// </summary>
     public abstract class MatrixProcessing : InteropBase, IMatrixProcessing
     {
         public abstract string Name { get; }
@@ -63,6 +68,8 @@ namespace PluginInterop
         /// <summary>
         /// Create the parameters for the GUI with default of generic 'Code file'
         /// and 'Additional arguments' parameters. Overwrite this function for custom structured parameters.
+        /// You might have to additionally override <see cref="GetCommandLineArgument"/> to match
+        /// your custom parameters. To pass parameters as XML file you can use <see cref="Utils.WriteParametersToFile"/>.
         /// </summary>
 	    protected virtual Parameter[] SpecificParameters(IMatrixData data, ref string errString)
 	    {
