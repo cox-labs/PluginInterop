@@ -32,6 +32,7 @@ namespace PluginInterop
         public virtual int NumSupplTables { get; }
         public virtual string[] HelpDocuments { get; }
         public virtual int NumDocuments { get; }
+        protected virtual bool AdditionalMatrices => false;
 
         public void ProcessData(IMatrixData mdata, Parameters param, ref IMatrixData[] supplTables, ref IDocumentData[] documents,
             ProcessInfo processInfo)
@@ -43,7 +44,7 @@ namespace PluginInterop
 		        return;
 	        }
             var inFile = Path.GetTempFileName();
-            PerseusUtils.WriteMatrixToFile(mdata, inFile, false);
+            PerseusUtils.WriteMatrixToFile(mdata, inFile, AdditionalMatrices);
             var outFile = Path.GetTempFileName();
             if (!TryGetCodeFile(param, out string codeFile))
             {
