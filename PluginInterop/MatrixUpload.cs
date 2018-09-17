@@ -7,6 +7,7 @@ using PerseusApi.Document;
 using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Utils;
+using PluginInterop.Properties;
 
 namespace PluginInterop
 {
@@ -52,6 +53,10 @@ namespace PluginInterop
             ProcessInfo processInfo)
         {
             var remoteExe = GetExectuable(param);
+	        if (string.IsNullOrWhiteSpace(remoteExe))
+	        {
+		        processInfo.ErrString = Resources.RemoteExeNotSpecified;
+	        }
             var outFile = Path.GetTempFileName();
             if (!TryGetCodeFile(param, out string codeFile))
             {

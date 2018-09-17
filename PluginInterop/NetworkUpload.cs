@@ -6,6 +6,7 @@ using BaseLibS.Param;
 using PerseusApi.Generic;
 using PerseusApi.Network;
 using PerseusApi.Utils.Network;
+using PluginInterop.Properties;
 
 namespace PluginInterop
 {
@@ -51,6 +52,10 @@ namespace PluginInterop
         public void LoadData(INetworkData ndata, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
         {
             var remoteExe = GetExectuable(param);
+	        if (string.IsNullOrWhiteSpace(remoteExe))
+	        {
+		        processInfo.ErrString = Resources.RemoteExeNotSpecified;
+	        }
             var outFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             if (!TryGetCodeFile(param, out string codeFile))
             {

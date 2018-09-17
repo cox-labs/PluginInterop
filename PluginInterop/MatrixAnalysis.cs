@@ -5,6 +5,7 @@ using BaseLibS.Param;
 using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Utils;
+using PluginInterop.Properties;
 
 namespace PluginInterop
 {
@@ -25,6 +26,11 @@ namespace PluginInterop
         public IAnalysisResult AnalyzeData(IMatrixData mdata, Parameters param, ProcessInfo processInfo)
         {
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
+	        if (string.IsNullOrWhiteSpace(remoteExe))
+	        {
+		        processInfo.ErrString = Resources.RemoteExeNotSpecified;
+		        return null;
+	        }
             var inFile = Path.GetTempFileName();
             PerseusUtils.WriteMatrixToFile(mdata, inFile);
 			var outFiles = new[] { Path.GetTempFileName() }

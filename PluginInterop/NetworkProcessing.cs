@@ -6,6 +6,7 @@ using BaseLibS.Param;
 using PerseusApi.Generic;
 using PerseusApi.Network;
 using PerseusApi.Utils.Network;
+using PluginInterop.Properties;
 
 namespace PluginInterop
 {
@@ -30,6 +31,10 @@ namespace PluginInterop
         public void ProcessData(INetworkData ndata, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
         {
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
+	        if (string.IsNullOrWhiteSpace(remoteExe))
+	        {
+		        processInfo.ErrString = Resources.RemoteExeNotSpecified;
+	        }
             var inFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             FolderFormat.Write(ndata, inFolder);
             var outFolder = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());

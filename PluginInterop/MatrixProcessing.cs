@@ -7,6 +7,7 @@ using PerseusApi.Document;
 using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Utils;
+using PluginInterop.Properties;
 
 namespace PluginInterop
 {
@@ -36,6 +37,11 @@ namespace PluginInterop
             ProcessInfo processInfo)
         {
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
+	        if (string.IsNullOrWhiteSpace(remoteExe))
+	        {
+		        processInfo.ErrString = Resources.RemoteExeNotSpecified;
+		        return;
+	        }
             var inFile = Path.GetTempFileName();
             PerseusUtils.WriteMatrixToFile(mdata, inFile, false);
             var outFile = Path.GetTempFileName();
