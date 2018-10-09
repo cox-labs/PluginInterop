@@ -17,7 +17,7 @@ namespace PluginInterop
         public virtual bool IsActive => true;
         public virtual int GetMaxThreads(Parameters parameters) => 1;
         public virtual bool HasButton => true;
-        public virtual string Url { get; }
+	    public virtual string Url => Resources.ProjectUrl;
         public virtual Bitmap2 DisplayImage { get; } 
         public virtual string Heading => "External";
         public virtual DataType[] SupplDataTypes => new DataType[0];

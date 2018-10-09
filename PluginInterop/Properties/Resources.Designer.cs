@@ -61,6 +61,15 @@ namespace PluginInterop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://github.com/jdrudolph/PluginInterop.
+        /// </summary>
+        internal static string ProjectUrl {
+            get {
+                return ResourceManager.GetString("ProjectUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap python_logo_master_v3_TM_flattened {

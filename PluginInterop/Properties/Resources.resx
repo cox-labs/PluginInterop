@@ -127,4 +127,7 @@
   <data name="RemoteExeNotSpecified" xml:space="preserve">
     <value>Please specify an executable. You can either provide its full file path or make sure that it is listed in the PATH and just provide its name. For more information visit the project homepage.</value>
   </data>
+  <data name="ProjectUrl" xml:space="preserve">
+    <value>https://github.com/jdrudolph/PluginInterop</value>
+  </data>
 </root>

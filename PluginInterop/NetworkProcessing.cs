@@ -19,7 +19,7 @@ namespace PluginInterop
         public virtual int GetMaxThreads(Parameters parameters) => 1;
         public virtual bool HasButton => false;
         public virtual Bitmap2 DisplayImage => null;
-        public virtual string Url => "www.github.com/jdrudolph/plugininterop";
+        public virtual string Url => Resources.ProjectUrl;
         public virtual string Heading => "External";
         public virtual string HelpOutput { get; }
         public virtual string[] HelpSupplTables { get; }

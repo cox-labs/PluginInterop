@@ -19,7 +19,7 @@ namespace PluginInterop
         public int GetMaxThreads(Parameters parameters) => 1;
         public bool HasButton => true;
         public abstract Bitmap2 DisplayImage { get; }
-        public string Url { get; }
+	    public string Url => Resources.ProjectUrl;
         public string[] HelpSupplTables { get; }
         public int NumSupplTables { get; }
         public string[] HelpDocuments { get; }
