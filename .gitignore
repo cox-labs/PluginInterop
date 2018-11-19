@@ -51,3 +51,4 @@ _ReSharper*
 /PluginInterop/conf/spSpecies.txt
 /.vs/PluginInterop/v15/Server/sqlite3
 /.vs/PluginInterop/DesignTimeBuild
+/.vs

@@ -21,7 +21,9 @@ available from Perseus. You can choose a custom interpreter and script file as w
 which should be run on the selected data. Perseus will try to automatically detect
 your `R` or `Python` installation, by looking at the default installation
 directories and the `%PATH%` variable. Therefore, installations at non-standard locations
-can be detected, if added to the `%PATH%` ([lmgtfy](http://lmgtfy.com/?q=windows+add+program+to+path)).
+can be detected, if added to the `%PATH%`. Adding programs to the `%PATH%` is different
+for different Windows versions, so please refer to online help for your specific
+Windows installation.
 
 The selected script will receive at least 2 commandline arguments:
 ```
