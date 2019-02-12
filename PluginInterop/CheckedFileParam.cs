@@ -3,6 +3,7 @@ using BaseLibS.Param;
 
 namespace PluginInterop
 {
+    [Serializable]
     public class CheckedFileParamWf : FileParam
     {
         [NonSerialized] private CheckedFileParamControl control;
