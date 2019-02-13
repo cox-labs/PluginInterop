@@ -4,6 +4,7 @@ using BaseLibS.Param;
 
 namespace PluginInterop
 {
+    [Serializable]
     public class ButtonParamWf : LabelParam
     {
         private readonly Button _button;
