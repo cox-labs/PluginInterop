@@ -112,8 +112,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF EXIST D:\Documents\net\net\DLLs\NUL (
-copy $(TargetDir)$(TargetFileName) D:\Documents\net\net\DLLs\$(TargetFileName)
+    <PostBuildEvent>IF EXIST D:\Documents\net\Perseus\bin\NUL (
+copy /Y $(TargetDir)$(TargetFileName) D:\Documents\net\Perseus\bin\$(TargetFileName)
 ) ELSE (
 echo "DLL not copied"
 )</PostBuildEvent>

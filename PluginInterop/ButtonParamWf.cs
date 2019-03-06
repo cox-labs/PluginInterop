@@ -7,6 +7,7 @@ namespace PluginInterop
     [Serializable]
     public class ButtonParamWf : LabelParam
     {
+        [NonSerialized]
         private readonly Button _button;
         public ButtonParamWf(string labelText, string buttonText, Action<object,EventArgs> clickHandler) : base(labelText)
         {
