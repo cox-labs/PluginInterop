@@ -9,6 +9,20 @@ The plugin is designed to work with other Perseus interop efforts such as:
  * [PerseusR](https://www.github.com/jdrudolph/PerseusR) for developing plugins in `R`.
  * [perseuspy](https://www.github.com/jdrudolph/perseuspy) for developing plugins in `Python`.
 
+# Running plugins
+## Generic scripts 
+Generic scripts do not have a dedicated button in the GUI. They are run via the generic activities such as `Matrix -> Processing -> External -> Python => Matrix`.
+
+![Screen shot of the Matrix => Python activity](https://raw.githubusercontent.com/jdrudolph/plugininterop/master/docs/matrix_python.png)
+
+ 1. Select the script file you want to run. Consult the documentation below on how to create such scripts.
+ 2. Provide additional parameters to the script. Parameters should be described in the documentation of the specific script you are running.
+ 3. Specify the location of the `Python` executable. Perseus will try to automatically detect your `Python` installation (see Technical notes below). If not detected automatically, manually navigate to the `python.exe` of your `Python` installation. The button should turn green to indicate success. If the button turns red, mouseover it to obtain more information.
+ 4. Run the script.
+
+## Hybrid scripts
+Hybrid scripts have a dedicated button in the GUI. Refer to point 3. in the section on generic scripts for instructions.
+
 # Developing plugins
 `PluginInterop` proviedes two new approaches to plugin development for Perseus. We recommend everyone to get started with the generic approach which provides all functionality in the simplest way. Moving from the generic to the hybrid approach improves the user experience when using the plugin but requires basic knowledge of `C#` development.
 
