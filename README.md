@@ -13,7 +13,7 @@ The plugin is designed to work with other Perseus interop efforts such as:
 ## Generic scripts 
 Generic scripts do not have a dedicated button in the GUI. They are run via the generic activities such as `Matrix -> Processing -> External -> Python => Matrix`.
 
-![Screen shot of the Matrix => Python activity](https://raw.githubusercontent.com/jdrudolph/plugininterop/master/docs/matrix_python.png)
+![Screen shot of the Matrix => Python activity](https://raw.githubusercontent.com/jdrudolph/plugininterop/master/docs/matrix_python.PNG)
 
  1. Select the script file you want to run. Consult the documentation below on how to create such scripts.
  2. Provide additional parameters to the script. Parameters should be described in the documentation of the specific script you are running.
