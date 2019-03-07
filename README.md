@@ -24,7 +24,7 @@ To specify the representation of the plugin in the GUI of Perseus, developers ca
 For `C#` plugins, Perseus automatically generates a GUI for parameter selection. To leverage this functionality create a new class deriving from `PluginInterop.MatrixProcessing` and overwrite the default `.AddParameters(...)` function. For inspiration on how to create the desired parameters see [perseus-plugins](https://www.github.com/jurgencox/perseus-plugins). The parameters selected by the user are written to an `.xml` file and its file path is passed to the script instead of the unstructured additional parameters used in the generic approach. In the same derived class were parameters are specified one can also specify the icon of the plugin, automatically load the script file from resources and even check for required package dependencies.
 
 # Plugin programming bootcamp
-
+Check out the step-by-step tutorial on [PluginTutorial](https://github.com/jdrudolph/plugintutorial) and the associated bootcamp from the MaxQuant summer school.
 [![Summer school bootcamp on plugin programming](https://img.youtube.com/vi/fYGx4oplCpI/0.jpg)](https://youtu.be/fYGx4oplCpI?t=5164)
 
 # Technical notes
