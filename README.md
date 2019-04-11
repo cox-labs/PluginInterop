@@ -6,14 +6,14 @@ This repository contains the source code for `PluginInterop`, the Perseus plugin
 
 The plugin is designed to work with other Perseus interop efforts such as:
 
- * [PerseusR](https://www.github.com/jdrudolph/PerseusR) for developing plugins in `R`.
- * [perseuspy](https://www.github.com/jdrudolph/perseuspy) for developing plugins in `Python`.
+ * [PerseusR](https://www.github.com/cox-labs/PerseusR) for developing plugins in `R`.
+ * [perseuspy](https://www.github.com/cox-labs/perseuspy) for developing plugins in `Python`.
 
 # Running plugins
 ## Generic scripts 
 Generic scripts do not have a dedicated button in the GUI. They are run via the generic activities such as `Matrix -> Processing -> External -> Python => Matrix`.
 
-![Screen shot of the Matrix => Python activity](https://raw.githubusercontent.com/jdrudolph/plugininterop/master/docs/matrix_python.PNG)
+![Screen shot of the Matrix => Python activity](https://raw.githubusercontent.com/cox-labs/plugininterop/master/docs/matrix_python.PNG)
 
  1. Select the script file you want to run. Consult the documentation below on how to create such scripts.
  2. Provide additional parameters to the script. Parameters should be described in the documentation of the specific script you are running.
@@ -27,7 +27,7 @@ Hybrid scripts have a dedicated button in the GUI. Refer to point 3. in the sect
 `PluginInterop` proviedes two new approaches to plugin development for Perseus. We recommend everyone to get started with the generic approach which provides all functionality in the simplest way. Moving from the generic to the hybrid approach improves the user experience when using the plugin but requires basic knowledge of `C#` development.
 
 ## Generic approach: Adapt or write a script
-Scripts written in `R` or `Python` can be run from within the Perseus workflow via generic activities, such as `Matrix -> Processing -> External -> R => Matrix`. In order to enable smooth communication between Perseus and `R`/`Python` it is highly recommended to make use of the [PerseusR](https://www.github.com/jdrudolph/PerseusR) and [perseuspy](https://www.github.com/jdrudolph/perseuspy) companion libraries. Visit their websites for instructions on how to adapt or write scripts, including a number of simple examples.
+Scripts written in `R` or `Python` can be run from within the Perseus workflow via generic activities, such as `Matrix -> Processing -> External -> R => Matrix`. In order to enable smooth communication between Perseus and `R`/`Python` it is highly recommended to make use of the [PerseusR](https://www.github.com/cox-labs/PerseusR) and [perseuspy](https://www.github.com/cox-labs/perseuspy) companion libraries. Visit their websites for instructions on how to adapt or write scripts, including a number of simple examples.
 
 The advantage of the generic approach is the elimination of the need to write any `C#` code. Anyone knowledgable in Python or R can write plugins for Perseus. Due to its generic nature, this approach has some limitations. There will be no dedicated in the GUI of Perseus. Additionally, parameters are passed to the plugin in an unstructured way, using command line parameters. If a dedicated GUI and structured parameter selection is required the hybrid approach described below is the way to go.
 
@@ -38,7 +38,7 @@ To specify the representation of the plugin in the GUI of Perseus, developers ca
 For `C#` plugins, Perseus automatically generates a GUI for parameter selection. To leverage this functionality create a new class deriving from `PluginInterop.MatrixProcessing` and overwrite the default `.AddParameters(...)` function. For inspiration on how to create the desired parameters see [perseus-plugins](https://www.github.com/jurgencox/perseus-plugins). The parameters selected by the user are written to an `.xml` file and its file path is passed to the script instead of the unstructured additional parameters used in the generic approach. In the same derived class were parameters are specified one can also specify the icon of the plugin, automatically load the script file from resources and even check for required package dependencies.
 
 # Plugin programming bootcamp
-Check out the step-by-step tutorial on [PluginTutorial](https://github.com/jdrudolph/plugintutorial) and the associated bootcamp from the MaxQuant summer school.
+Check out the step-by-step tutorial on [PluginTutorial](https://github.com/cox-labs/plugintutorial) and the associated bootcamp from the MaxQuant summer school.
 [![Summer school bootcamp on plugin programming](https://img.youtube.com/vi/fYGx4oplCpI/0.jpg)](https://youtu.be/fYGx4oplCpI?t=5164)
 
 # Technical notes
