@@ -33,14 +33,17 @@
     <DocumentationFile>bin\Release\PluginInterop.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BaseLib, Version=1.6.3.456, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLib.1.6.3.456\lib\net472\BaseLib.dll</HintPath>
+    <Reference Include="BaseLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\BaseLib.dll</HintPath>
     </Reference>
-    <Reference Include="BaseLibS, Version=1.6.3.456, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BaseLibS.1.6.3.456\lib\net472\BaseLibS.dll</HintPath>
+    <Reference Include="BaseLibS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\BaseLibS.dll</HintPath>
     </Reference>
-    <Reference Include="PerseusApi, Version=1.6.3.395, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PerseusApi.1.6.3.395\lib\net472\PerseusApi.dll</HintPath>
+    <Reference Include="PerseusApi, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\PerseusApi.dll</HintPath>
     </Reference>
     <Reference Include="SVG, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SvgNet.1.0.8\lib\net40\SVG.dll</HintPath>
