@@ -48,7 +48,7 @@ namespace PluginInterop
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(572, 42);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1525, 100);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // filePathTextBox
@@ -57,16 +57,16 @@ namespace PluginInterop
             this.filePathTextBox.Location = new System.Drawing.Point(0, 0);
             this.filePathTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.filePathTextBox.Name = "filePathTextBox";
-            this.filePathTextBox.Size = new System.Drawing.Size(461, 20);
+            this.filePathTextBox.Size = new System.Drawing.Size(1229, 38);
             this.filePathTextBox.TabIndex = 0;
             // 
             // selectButton
             // 
             this.selectButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.selectButton.Location = new System.Drawing.Point(461, 0);
+            this.selectButton.Location = new System.Drawing.Point(1229, 0);
             this.selectButton.Margin = new System.Windows.Forms.Padding(0);
             this.selectButton.Name = "selectButton";
-            this.selectButton.Size = new System.Drawing.Size(111, 20);
+            this.selectButton.Size = new System.Drawing.Size(296, 48);
             this.selectButton.TabIndex = 1;
             this.selectButton.Text = "Select";
             this.selectButton.UseVisualStyleBackColor = true;
@@ -74,12 +74,12 @@ namespace PluginInterop
             // 
             // CheckedFileParamControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "CheckedFileParamControl";
-            this.Size = new System.Drawing.Size(579, 42);
+            this.Size = new System.Drawing.Size(1544, 100);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

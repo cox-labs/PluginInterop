@@ -91,6 +91,7 @@
     <Compile Include="Python\Utils.cs" />
     <Compile Include="R\MatrixAnalysis.cs" />
     <Compile Include="R\MatrixProcessing.cs" />
+    <Compile Include="R\MatrixUpload.cs" />
     <Compile Include="R\Utils.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
@@ -112,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Rlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\facs.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

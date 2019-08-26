@@ -112,5 +112,72 @@ namespace PluginInterop.R
 		    return fileParam;
 	    }
 
+        public static bool CheckPythonInstallation(string exeName, string[] packages)
+        {
+            try
+            {
+                var imports = string.Join("; ", packages.Select(package => $"import {package}"));
+                Process p = new Process
+                {
+                    StartInfo =
+                    {
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        FileName = exeName,
+                        Arguments = $"-c \"{imports}; print('hello')\"",
+                        RedirectStandardOutput = true,
+                    }
+                };
+                var output = new StringBuilder();
+                p.OutputDataReceived += (sender, args) =>
+                {
+                    output.Append(args.Data);
+                };
+                p.Start();
+                p.BeginOutputReadLine();
+                p.WaitForExit();
+                return p.ExitCode == 0 && output.ToString().StartsWith("hello");
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public delegate bool TryFindExecutableDelegate(out string path);
+
+        public static FileParam CreateCheckedFileParamforupload(string interpreterLabel, string interpreterFilter, TryFindExecutableDelegate tryFindExecutable,
+    string[] packages)
+        {
+            Action<string, CheckedFileParamControl> checkFileName = (s, control) =>
+            {
+                if (string.IsNullOrWhiteSpace(s))
+                {
+                    return;
+                }
+                if (CheckPythonInstallation(s, packages))
+                {
+                    control.selectButton.BackColor = Color.LimeGreen;
+                    control.ToolTip.SetToolTip(control.selectButton, "Python installation was found");
+                }
+                else
+                {
+                    control.selectButton.BackColor = Color.Red;
+                    control.ToolTip.SetToolTip(control.selectButton,
+                        "A valid Python installation was not found.\n" +
+                        "Could not import one or more packages:\n" +
+                        string.Join(", ", packages));
+                }
+                ;
+            };
+            var fileParam = new CheckedFileParamWf(interpreterLabel, checkFileName) { Filter = interpreterFilter };
+            string path;
+            if (tryFindExecutable(out path))
+            {
+                fileParam.Value = path;
+            }
+            return fileParam;
+        }
+
     }
 }
