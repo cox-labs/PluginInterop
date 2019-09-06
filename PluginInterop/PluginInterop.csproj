@@ -114,9 +114,6 @@
   <ItemGroup>
     <None Include="Resources\Rlogo.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\facs.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF EXIST D:\Documents\net\Perseus\bin\NUL (
