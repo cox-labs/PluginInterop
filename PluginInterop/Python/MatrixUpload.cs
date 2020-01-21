@@ -1,4 +1,4 @@
-﻿using BaseLib.Graphic;
+﻿/*using BaseLib.Graphic;
 using BaseLibS.Graph;
 using BaseLibS.Param;
 
@@ -26,3 +26,4 @@ namespace PluginInterop.Python
         }
     }
 }
+*/
