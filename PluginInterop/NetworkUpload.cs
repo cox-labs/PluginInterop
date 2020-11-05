@@ -5,12 +5,12 @@ using BaseLibS.Graph;
 using BaseLibS.Param;
 using PerseusApi.Generic;
 using PerseusApi.Network;
-using PerseusApi.Utils.Network;
+using PerseusApi.Network;
 using PluginInterop.Properties;
 
 namespace PluginInterop
 {
-    public abstract class NetworkUpload : InteropBase, INetworkUpload
+    public abstract class NetworkUpload : InteropBase, INetworkUploadAnnColumns
     {
         public abstract string Name { get; }
         public abstract string Description { get; }
@@ -49,7 +49,7 @@ namespace PluginInterop
             return new Parameter[] { CodeFileParam(), AdditionalArgumentsParam() };
         }
 
-        public void LoadData(INetworkData ndata, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
+        public void LoadData(INetworkDataAnnColumns ndata, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
         {
             var remoteExe = GetExectuable(param);
 	        if (string.IsNullOrWhiteSpace(remoteExe))

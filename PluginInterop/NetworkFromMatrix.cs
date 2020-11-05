@@ -7,12 +7,12 @@ using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Network;
 using PerseusApi.Utils;
-using PerseusApi.Utils.Network;
+using PerseusApi.Network;
 using PluginInterop.Properties;
 
 namespace PluginInterop
 {
-    public abstract class NetworkFromMatrix : InteropBase, INetworkFromMatrix
+    public abstract class NetworkFromMatrix : InteropBase, INetworkFromMatrixAnnColumns
     {
         public abstract string Name { get; }
         public abstract string Description { get; }
@@ -30,7 +30,7 @@ namespace PluginInterop
         public virtual int NumDocuments { get; }
         public virtual DataType[] SupplDataTypes => Enumerable.Repeat(DataType.Matrix, NumSupplTables).ToArray();
 
-        public void ProcessData(IMatrixData inData, INetworkData outData, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
+        public void ProcessData(IMatrixData inData, INetworkDataAnnColumns outData, Parameters param, ref IData[] supplData, ProcessInfo processInfo)
         {
             var remoteExe = param.GetParam<string>(InterpreterLabel).Value;
 	        if (string.IsNullOrWhiteSpace(remoteExe))

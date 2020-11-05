@@ -10,7 +10,7 @@ using PerseusApi.Generic;
 using PerseusApi.Matrix;
 using PerseusApi.Network;
 using PerseusApi.Utils;
-using PerseusApi.Utils.Network;
+using PerseusApi.Network;
 
 namespace PluginInterop
 {
@@ -40,7 +40,7 @@ namespace PluginInterop
 		    {
 			    return MatrixDataPreviewButton(mdata);
 		    }
-		    if (data is INetworkData ndata)
+		    if (data is INetworkDataAnnColumns ndata)
 		    {
 			    return NetworkDataPreviewButton(ndata);
 		    }
@@ -63,7 +63,7 @@ namespace PluginInterop
             });
         }
 
-        public static ButtonParamWf NetworkDataPreviewButton(INetworkData ndata)
+        public static ButtonParamWf NetworkDataPreviewButton(INetworkDataAnnColumns ndata)
         {
             return new ButtonParamWf("Download data for preview", "save", (o, args) =>
             {
@@ -167,7 +167,7 @@ namespace PluginInterop
                         supplData[i] = mdata;
                         break;
                     case DataType.Network:
-                        var ndata = PerseusFactory.CreateNetworkData();
+                        var ndata = PerseusFactoryAnnColumns.CreateNetworkData();
                         FolderFormat.Read(ndata, suppFiles[i], processInfo);
                         supplData[i] = ndata;
                         break;

@@ -27,7 +27,7 @@ namespace PluginInterop.Test.Python
             var parameters = processing.GetParameters(mdata, ref errString);
             Assert.IsTrue(string.IsNullOrEmpty(errString));
             parameters.GetParam<string>("Script file").Value = codeFile;
-            var ndata = PerseusFactory.CreateNetworkData();
+            var ndata = PerseusFactoryAnnColumns.CreateNetworkData();
             IData[] suppData = null;
             var pinfo = new ProcessInfo(new Settings(), s => { }, i => { }, 1);
             processing.ProcessData(mdata, ndata, parameters, ref suppData, pinfo);
